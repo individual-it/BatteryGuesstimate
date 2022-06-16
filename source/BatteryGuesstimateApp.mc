@@ -10,7 +10,7 @@ import Toybox.Time;
 const SIZE_CIRCULAR_BUFFER = 5;
 
 
-(:background)
+(:background :glance)
 class BatteryGuesstimateApp extends Application.AppBase {
 
     //! Constructor
