@@ -7,7 +7,7 @@ import Toybox.System;
 import Toybox.Time;
 
 (:background)
-const SIZE_CIRCULAR_BUFFER = 5;
+const SIZE_CIRCULAR_BUFFER = 96;
 
 
 (:background :glance)
