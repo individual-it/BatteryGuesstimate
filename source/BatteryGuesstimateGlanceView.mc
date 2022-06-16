@@ -13,12 +13,9 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
 
 
   function onUpdate(dc) {
-    var changeInPercent = $.guesstimate();
-    var message as String;
-    message = "15m -> " + changeInPercent;
-    
     dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
     dc.drawText(0, 0, Graphics.FONT_TINY, _heading, Graphics.TEXT_JUSTIFY_LEFT);
-    dc.drawText(0, 20, Graphics.FONT_XTINY, message, Graphics.TEXT_JUSTIFY_LEFT);
+    dc.drawText(0, 20, Graphics.FONT_XTINY, "15m:" + $.guesstimate(1), Graphics.TEXT_JUSTIFY_LEFT);
+    dc.drawText(0, 40, Graphics.FONT_XTINY, "30m:" + $.guesstimate(2), Graphics.TEXT_JUSTIFY_LEFT);
   }
 }

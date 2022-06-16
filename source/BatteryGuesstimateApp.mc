@@ -87,12 +87,15 @@ class MyServiceDelegate extends System.ServiceDelegate {
 }
 
 (:glance)
-public function guesstimate() {
+public function guesstimate(stepsOfHistory as Integer) {
     var circularBufferPosition;
     var lastBatValue;
     var startCalculationBatValue;
     var result as Float;
 
+    if (stepsOfHistory >= SIZE_CIRCULAR_BUFFER) {
+        return "no data";
+    }
     circularBufferPosition = Storage.getValue("circular buffer last position");
     if (circularBufferPosition == null) {
         return "no data";
@@ -101,9 +104,9 @@ public function guesstimate() {
     if (lastBatValue == null) {
         return "no data";
     }
-    circularBufferPosition = circularBufferPosition - 1;
+    circularBufferPosition = circularBufferPosition - stepsOfHistory;
     if (circularBufferPosition < 0) {
-        circularBufferPosition = SIZE_CIRCULAR_BUFFER;
+        circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition;
     }
     startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
     if (startCalculationBatValue == null) {
