@@ -17,11 +17,8 @@ class BatteryGuesstimateApp extends Application.AppBase {
     public function initialize() {
         AppBase.initialize();
         System.println("App initialize");
-        if(Background.getTemporalEventRegisteredTime() != null) {
-            System.println("getTemporalEventRegisteredTime");
-            Background.registerForTemporalEvent(new Time.Duration(15 * 60));
-            System.println("registerForTemporalEvent");
-        }
+        Background.registerForTemporalEvent(new Time.Duration(15 * 60));
+        System.println("registerForTemporalEvent");
     }
 
     //! Handle app startup
