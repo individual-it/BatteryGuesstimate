@@ -16,8 +16,11 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! Constructor
     public function initialize() {
         AppBase.initialize();
+        System.println("App initialize");
         if(Background.getTemporalEventRegisteredTime() != null) {
+            System.println("getTemporalEventRegisteredTime");
             Background.registerForTemporalEvent(new Time.Duration(15 * 60));
+            System.println("registerForTemporalEvent");
         }
     }
 
@@ -58,10 +61,12 @@ class MyServiceDelegate extends System.ServiceDelegate {
     (:background_method)
     public function initialize() {
      System.ServiceDelegate.initialize();
+     System.println("System.ServiceDelegate.initialize");
     }
 
     (:background_method)
     public function onTemporalEvent() as Void {
+        System.println("onTemporalEvent");
         var circularBufferPosition;
         circularBufferPosition = Storage.getValue("circular buffer last position");
         if (circularBufferPosition == null) {
@@ -74,7 +79,9 @@ class MyServiceDelegate extends System.ServiceDelegate {
         }
         var systemStats = System.getSystemStats();
         Storage.setValue("circular buffer " + circularBufferPosition, systemStats.battery);
+        System.println("circular buffer " + circularBufferPosition + " => " + systemStats.battery);
         Storage.setValue("circular buffer last position", circularBufferPosition);
+        System.println("circular buffer last position => " + circularBufferPosition);
         System.println( circularBufferPosition );
         Background.exit(true);
     }
