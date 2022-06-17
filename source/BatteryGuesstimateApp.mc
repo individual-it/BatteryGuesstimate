@@ -113,9 +113,5 @@ public function guesstimate(stepsOfHistory as Integer) {
         return "no data";
     }
     result = lastBatValue - startCalculationBatValue;
-    if (result >= 0) {
-        return "+" + result + "%";
-    } else {
-        return result.toString() + "%";
-    }
+    return result.format("%+0.2f") + "%";
 }
