@@ -93,7 +93,7 @@ public function guesstimate(stepsOfHistory as Integer) {
     var startCalculationBatValue;
     var result as Float;
 
-    if (stepsOfHistory >= SIZE_CIRCULAR_BUFFER) {
+    if (stepsOfHistory > SIZE_CIRCULAR_BUFFER) {
         return "no data";
     }
     circularBufferPosition = Storage.getValue("circular buffer last position");
