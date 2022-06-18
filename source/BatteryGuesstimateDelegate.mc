@@ -42,8 +42,9 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
         } else {
             message = minutes + "min";
         }
+        var batteryChange = $.getBattChangeInPercent(_stepsOfHistory);
 
-        _view.setMessage(message + " batt change\n" + $.guesstimate(_stepsOfHistory));
+        _view.setMessage(message + " batt change\n" + $.formatOutput(batteryChange));
         return true;
     }
 }

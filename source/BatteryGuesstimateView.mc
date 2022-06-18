@@ -9,7 +9,8 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Constructor
     public function initialize() {
-        _message = "15min batt change\n" + $.guesstimate(1);
+        var batteryChange = $.getBattChangeInPercent(1);
+        _message = "15min batt change\n" + $.formatOutput(batteryChange);
         WatchUi.View.initialize();
     }
 

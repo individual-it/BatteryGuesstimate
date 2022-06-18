@@ -87,22 +87,22 @@ class MyServiceDelegate extends System.ServiceDelegate {
 }
 
 (:glance)
-public function guesstimate(stepsOfHistory as Integer) {
+public function getBattChangeInPercent(stepsOfHistory as Integer) {
     var circularBufferPosition;
     var lastBatValue;
     var startCalculationBatValue;
     var result as Float;
 
     if (stepsOfHistory > SIZE_CIRCULAR_BUFFER) {
-        return "no data";
+        return null;
     }
     circularBufferPosition = Storage.getValue("circular buffer last position");
     if (circularBufferPosition == null) {
-        return "no data";
+        return null;
     }
     lastBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
     if (lastBatValue == null) {
-        return "no data";
+        return null;
     }
     circularBufferPosition = circularBufferPosition - stepsOfHistory;
     if (circularBufferPosition < 0) {
@@ -110,8 +110,15 @@ public function guesstimate(stepsOfHistory as Integer) {
     }
     startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
     if (startCalculationBatValue == null) {
+        return null;
+    }
+    return lastBatValue - startCalculationBatValue;
+}
+
+(:glance)
+public function formatOutput(batteryChangeInPercent as Float) {
+    if (batteryChangeInPercent == null) {
         return "no data";
     }
-    result = lastBatValue - startCalculationBatValue;
-    return result.format("%+0.2f") + "%";
+    return batteryChangeInPercent.format("%+0.2f") + "%";
 }
