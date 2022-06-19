@@ -12,7 +12,7 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
     }
 
     //! @return true if handled, false otherwise
-    public function onNextPage() as Boolean {
+    public function onPreviousPage() as Boolean {
         if (_stepsOfHistory >= 24) {
             _stepsOfHistory = _stepsOfHistory + 12;
         } else if (_stepsOfHistory >= 8) {
@@ -29,7 +29,7 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
     }
 
     //! @return true if handled, false otherwise
-    public function onPreviousPage() as Boolean {
+    public function onNextPage() as Boolean {
         if (_stepsOfHistory <= 8) {
             _stepsOfHistory = _stepsOfHistory - 1;
         } else if (_stepsOfHistory <= 24) {
