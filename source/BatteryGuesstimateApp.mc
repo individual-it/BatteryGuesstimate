@@ -97,7 +97,10 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
     if (stepsOfHistory > SIZE_CIRCULAR_BUFFER) {
         return null;
     }
+    System.println("calculating over " + stepsOfHistory);
     circularBufferPosition = Storage.getValue("circular buffer last position");
+    System.println("   till position " + circularBufferPosition);
+
     if (circularBufferPosition == null) {
         return null;
     }
@@ -107,8 +110,9 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
     }
     circularBufferPosition = circularBufferPosition - stepsOfHistory;
     if (circularBufferPosition < 0) {
-        circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition;
+        circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition + 1;
     }
+    System.println("   from position " + circularBufferPosition);
     startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
     if (startCalculationBatValue == null) {
         return null;
