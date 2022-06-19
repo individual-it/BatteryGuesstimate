@@ -19,7 +19,7 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
     var guesstimate = $.guesstimate(batteryChange, 15);
     dc.drawText(0, 20, Graphics.FONT_XTINY, "15m:" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
     batteryChange = $.getBattChangeInPercent(2);
-    guesstimate = $.guesstimate(batteryChange, 15);
+    guesstimate = $.guesstimate(batteryChange, 30);
     dc.drawText(0, 40, Graphics.FONT_XTINY, "30m:" + $.formatOutput(batteryChange)+ " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
   }
 }
