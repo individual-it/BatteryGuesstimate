@@ -9,7 +9,7 @@ import Toybox.Math;
 
 (:background)
 const SIZE_CIRCULAR_BUFFER = 96;
-
+const MINUTES_IN_ONE_DAY = 1440;
 
 (:background :glance)
 class BatteryGuesstimateApp extends Application.AppBase {
@@ -141,9 +141,9 @@ public function guesstimateFormat(minutes as Integer) {
 
     if (minutes < 60) {
         return minutes + "m";
-    } else if (minutes < 1440) {
+    } else if (minutes < MINUTES_IN_ONE_DAY * 3) {
         return Math.floor(minutes / 60) + "h";
     } else {
-        return Math.floor(minutes / 1440) + "d";
+        return Math.floor(minutes / MINUTES_IN_ONE_DAY) + "d";
     }
 }
