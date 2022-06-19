@@ -7,9 +7,12 @@
         <label x="center" y="bottom" text="24h" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
         <drawable id="ChartBackground"/>
         <drawable id="Magnifier"/>
+    </layout>
+    <layout id="DetailsLayout">
+        <label x="10" y="80" text="ø CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
+        <label x="10" y="120" text="TIME LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
 
     </layout>
-
 
     <drawable-list id="ChartBackground" width="100" height="50" x="20" y="90" background="Gfx.COLOR_BLACK">
         <shape type="rectangle" x="0" y="0" width="100" height="1"  color="Gfx.COLOR_WHITE" />

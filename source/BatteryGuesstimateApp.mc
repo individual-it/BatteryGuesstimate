@@ -5,6 +5,7 @@ import Toybox.WatchUi;
 import Toybox.Background;
 import Toybox.System;
 import Toybox.Time;
+import Toybox.Math;
 
 (:background)
 const SIZE_CIRCULAR_BUFFER = 96;
@@ -121,4 +122,28 @@ public function formatOutput(batteryChangeInPercent as Float) {
         return "no data";
     }
     return batteryChangeInPercent.format("%+0.2f") + "%";
+}
+
+(:glance)
+public function guesstimate(percentChange as Float, minutes as Integer) {
+    if (percentChange == null || percentChange >= 0) {
+        return null;
+    }
+    percentChange = percentChange * -1;
+    return (System.getSystemStats().battery / percentChange * minutes).toNumber();
+}
+
+(:glance)
+public function guesstimateFormat(minutes as Integer) {
+    if (minutes == null) {
+        return "-";
+    }
+
+    if (minutes < 60) {
+        return minutes + "m";
+    } else if (minutes < 1440) {
+        return Math.floor(minutes / 60) + "h";
+    } else {
+        return Math.floor(minutes / 1440) + "d";
+    }
 }

@@ -24,7 +24,7 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
         if (_stepsOfHistory > $.SIZE_CIRCULAR_BUFFER){
             _stepsOfHistory = 1;
         }
-        _view.setMessage(self.getMessage());
+        setMessage();
         return true;
     }
 
@@ -41,20 +41,14 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
         if (_stepsOfHistory < 1){
             _stepsOfHistory = $.SIZE_CIRCULAR_BUFFER;
         }
-        _view.setMessage(self.getMessage());
+        setMessage();
         return true;
     }
 
-    private function getMessage() {
-        var message as String;
+    private function setMessage() {
         var minutes = _stepsOfHistory * 15;
-        if (minutes > 120) {
-            message = _stepsOfHistory / 4 + "h";
-        } else {
-            message = minutes + "min";
-        }
         var batteryChange = $.getBattChangeInPercent(_stepsOfHistory);
-
-        return message + " batt change\n" + $.formatOutput(batteryChange);
+        var guesstimate = $.guesstimate(batteryChange, minutes);
+        _view.setMessage(minutes, batteryChange, guesstimate);
     }
 }
