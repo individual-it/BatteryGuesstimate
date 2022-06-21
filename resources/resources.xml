@@ -9,9 +9,13 @@
         <drawable id="Magnifier"/>
     </layout>
     <layout id="DetailsLayout">
-        <label x="10" y="80" text="ø CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
-        <label x="10" y="120" text="TIME LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
+        <label x="67" y="68" text="ø" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_SMALL" />
+        <label x="90" y="87" text="CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="90" y="125" text="TIME " color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="90" y="145" text="LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
 
+        <label x="2%" y="45%" text="+" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
+        <label x="10%" y="80%" text="-" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_SMALL" />
     </layout>
 
     <drawable-list id="ChartBackground" width="100" height="50" x="20" y="90" background="Gfx.COLOR_BLACK">

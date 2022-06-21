@@ -47,9 +47,16 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         } else {
             time = _minutes + "min";
         }
+
+        dc.drawLine(0, 79, 10, 79);
+        dc.drawLine(10, 79, 20, 89);
+        dc.drawLine(20, 89, 20, 126);
+        dc.drawLine(20, 126, 42, 148);
+        dc.drawLine(42, 148, 42, 176);
+
         dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
-        dc.drawText(100, 77, Graphics.FONT_MEDIUM, $.formatOutput(_battChangeInPercent), Graphics.TEXT_JUSTIFY_LEFT );
-        dc.drawText(100, 117, Graphics.FONT_MEDIUM, $.guesstimateFormat(_guesstimate), Graphics.TEXT_JUSTIFY_LEFT );
+        dc.drawText(100, 87, Graphics.FONT_MEDIUM, $.formatOutput(_battChangeInPercent), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
+        dc.drawText(100, 145, Graphics.FONT_MEDIUM, $.guesstimateFormat(_guesstimate), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
     }
 
     //! Called when this View is removed from the screen. Save the
