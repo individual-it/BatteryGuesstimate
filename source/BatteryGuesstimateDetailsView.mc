@@ -49,10 +49,10 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         }
 
         dc.drawLine(0, 79, 10, 79);
-        dc.drawLine(10, 79, 20, 89);
-        dc.drawLine(20, 89, 20, 126);
-        dc.drawLine(20, 126, 42, 148);
-        dc.drawLine(42, 148, 42, 176);
+        dc.drawLine(10, 79, 15, 89);
+        dc.drawLine(15, 89, 15, 130);
+        dc.drawLine(15, 130, 10, 140);
+        dc.drawLine(10, 140, 0, 140);
 
         dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
         dc.drawText(100, 87, Graphics.FONT_MEDIUM, $.formatOutput(_battChangeInPercent), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
