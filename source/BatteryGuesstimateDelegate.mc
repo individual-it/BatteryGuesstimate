@@ -2,7 +2,6 @@ import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-//! Creates a web request on menu / select events
 class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
     private var _view as BatteryGuesstimateView;
     private var _stepsOfHistory = 1;
@@ -14,13 +13,11 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
-    //! On a menu event, make a web request
     //! @return true if handled, false otherwise
     public function onMenu() as Boolean {
         return true;
     }
 
-    //! On a select event, make a web request
     //! @return true if handled, false otherwise
     public function onSelect() as Boolean {
         var view = new BatteryGuesstimateDetailsView();

@@ -3,7 +3,6 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.System;
 
-//! Shows the web request result
 class BatteryGuesstimateDetailsView extends WatchUi.View {
     private var _minutes as Integer;
     private var _battChangeInPercent as Integer;
