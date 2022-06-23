@@ -8,7 +8,8 @@ import Toybox.Time;
 import Toybox.Math;
 
 (:background)
-const SIZE_CIRCULAR_BUFFER = 96;
+const SIZE_CIRCULAR_BUFFER = 97; // 24h + 1 (so that we can actually calculate over 24h)
+const MAX_STEPS_TO_CALC = 96; // 24h
 const MINUTES_IN_ONE_DAY = 1440;
 
 (:background :glance)
@@ -48,6 +49,8 @@ class BatteryGuesstimateApp extends Application.AppBase {
         return [new $.MyServiceDelegate()] as Array<ServiceDelegate>;
     }
 }
+
+
 
 // Your service delegate has to be marked as background
 // so it can handle your service callbacks
@@ -90,7 +93,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
     var startCalculationBatValue;
     var result as Float;
 
-    if (stepsOfHistory > SIZE_CIRCULAR_BUFFER) {
+    if (stepsOfHistory > MAX_STEPS_TO_CALC) {
         return null;
     }
     System.println("calculating over " + stepsOfHistory);
@@ -106,7 +109,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
     }
     circularBufferPosition = circularBufferPosition - stepsOfHistory;
     if (circularBufferPosition < 0) {
-        circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition + 1;
+        circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition;
     }
     System.println("   from position " + circularBufferPosition);
     startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition);

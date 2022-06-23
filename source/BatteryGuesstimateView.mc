@@ -5,7 +5,6 @@ import Toybox.System;
 import Toybox.Application.Storage;
 import Toybox.Math;
 
-
 class BatteryGuesstimateView extends WatchUi.View {
     private var _message as String = "";
 
@@ -43,7 +42,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             return;
         }
 
-        for (var x = $.SIZE_CIRCULAR_BUFFER+xMarginLeft; x > xMarginLeft; x -= 1) {
+        for (var x = $.MAX_STEPS_TO_CALC+xMarginLeft; x >= xMarginLeft; x -= 1) {
             batteryValue = Storage.getValue("circular buffer " + circularBufferPosition);
 
             if (batteryValue == null) {
@@ -56,7 +55,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             dc.drawLine(x, yZeroLine, x, yZeroLine-batteryValue);
             circularBufferPosition = circularBufferPosition - 1;
             if (circularBufferPosition < 0) {
-                circularBufferPosition = $.SIZE_CIRCULAR_BUFFER;
+                circularBufferPosition = $.MAX_STEPS_TO_CALC;
             }
         }
     }
