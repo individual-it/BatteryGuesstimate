@@ -19,8 +19,8 @@ The prediction is rather pessimistic, so it will always floor decimal results (a
 ## Screenshots
 ![glance](screenshots/glance.png)
 ![battery chart](screenshots/battery-chart.png)
-![details 75min](screenshots/details-75min.png)
-![details 24h](screenshots/details-24h.png)
+![details 15min](screenshots/details-15min.png)
+![details 21h](screenshots/details-21h.png)
 
 
 ## Usage
