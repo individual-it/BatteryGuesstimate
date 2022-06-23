@@ -21,7 +21,7 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
             _stepsOfHistory = _stepsOfHistory + 1;
         }
 
-        if (_stepsOfHistory > $.SIZE_CIRCULAR_BUFFER){
+        if (_stepsOfHistory > $.MAX_STEPS_TO_CALC){
             _stepsOfHistory = 1;
         }
         setMessage();
@@ -39,7 +39,7 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
         }
 
         if (_stepsOfHistory < 1){
-            _stepsOfHistory = $.SIZE_CIRCULAR_BUFFER;
+            _stepsOfHistory = $.MAX_STEPS_TO_CALC;
         }
         setMessage();
         return true;
