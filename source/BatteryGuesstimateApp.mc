@@ -17,9 +17,7 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! Constructor
     public function initialize() {
         AppBase.initialize();
-        System.println("App initialize");
         Background.registerForTemporalEvent(new Time.Duration(15 * 60));
-        System.println("registerForTemporalEvent");
     }
 
     //! Handle app startup
@@ -59,7 +57,6 @@ class MyServiceDelegate extends System.ServiceDelegate {
     (:background_method)
     public function initialize() {
      System.ServiceDelegate.initialize();
-     System.println("System.ServiceDelegate.initialize");
     }
 
     (:background_method)
@@ -67,6 +64,7 @@ class MyServiceDelegate extends System.ServiceDelegate {
         System.println("onTemporalEvent");
         var circularBufferPosition;
         circularBufferPosition = Storage.getValue("circular buffer last position");
+        System.println("circular buffer last position => " + circularBufferPosition);
         if (circularBufferPosition == null) {
             circularBufferPosition = 0;
         } else {
@@ -79,8 +77,6 @@ class MyServiceDelegate extends System.ServiceDelegate {
         Storage.setValue("circular buffer " + circularBufferPosition, systemStats.battery);
         System.println("circular buffer " + circularBufferPosition + " => " + systemStats.battery);
         Storage.setValue("circular buffer last position", circularBufferPosition);
-        System.println("circular buffer last position => " + circularBufferPosition);
-        System.println( circularBufferPosition );
         Background.exit(true);
     }
     
