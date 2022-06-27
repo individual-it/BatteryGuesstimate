@@ -1,0 +1,1 @@
+../../app/source/BatteryGuesstimateGlanceView.mc
