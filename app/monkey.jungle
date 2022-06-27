@@ -1,1 +1,6 @@
 project.manifest = manifest.xml
+
+base.sourcePath = source
+
+instinct2.sourcePath = $(instinct2.sourcePath);source-instinct2
+instinct2s.sourcePath = $(instinct2s.sourcePath);source-instinct2s
