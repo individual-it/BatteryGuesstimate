@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 
 class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
     private var _view as BatteryGuesstimateDetailsView;
-    private var _stepsOfHistory = 1;
+    private var _stepsOfHistory as Integer = 1;
 
     public function initialize(view as BatteryGuesstimateDetailsView) {
         WatchUi.BehaviorDelegate.initialize();
@@ -45,9 +45,12 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    private function setMessage() {
+    private function setMessage() as Void {
         var minutes = _stepsOfHistory * 15;
         var batteryChange = $.getBattChangeInPercent(_stepsOfHistory);
+        if (batteryChange == null) {
+            batteryChange = 0.0;
+        }
         var guesstimate = $.guesstimate(batteryChange, minutes);
         _view.setMessage(minutes, batteryChange, guesstimate);
     }

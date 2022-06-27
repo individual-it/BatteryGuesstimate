@@ -1,6 +1,7 @@
 import Toybox.Test;
 import Toybox.Math;
 import Toybox.Application.Storage;
+import Toybox.Lang;
 
 (:test)
 function getBattChangeInPercentTest(logger as Logger) as Boolean {
@@ -17,8 +18,8 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
         [2, [ [1, 4.2], [2, 3.2], [3, 0.2], ], 96, 3.0], // 24h
 
     ];
-    var change as Float;
-    var result as Boolean;
+    var change;
+    var result;
     for (var testCaseNo = 0; testCaseNo < testCases.size(); testCaseNo++) {
         logger.debug("case " + (testCaseNo+1) + " of " + testCases.size());
         Storage.setValue("circular buffer last position", testCases[testCaseNo][0]);
@@ -34,7 +35,7 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
 
 }
 
-function assertEqualFloat(logger as Logger, actual, expected) as Boolean {
+function assertEqualFloat(logger as Logger, actual as Float, expected as Float) as Boolean {
     var result = actual - expected;
     if ( result > 0.00001 || result < -0.00001 ) {
         logger.error("expected " + expected + " actual " + actual);
@@ -48,10 +49,10 @@ function assertEqualFloat(logger as Logger, actual, expected) as Boolean {
 function randomBattery(logger as Logger) as Boolean {
     var circularBufferPosition = 0;
     var fakeBatteryValue = 10.2123433;
-    var rand as Float;
+    var rand;
     var RAND_MAX = 2147483647.0;
     for (var i = 0; i <= SIZE_CIRCULAR_BUFFER; i++) {
-        circularBufferPosition = Storage.getValue("circular buffer last position");
+        circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
         if (circularBufferPosition == null) {
             circularBufferPosition = 0;
         } else {

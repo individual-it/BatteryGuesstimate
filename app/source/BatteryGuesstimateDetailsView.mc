@@ -5,15 +5,20 @@ import Toybox.System;
 
 class BatteryGuesstimateDetailsView extends WatchUi.View {
     private var _minutes as Integer;
-    private var _battChangeInPercent as Integer;
+    private var _battChangeInPercent as Float;
     private var _guesstimate as Integer;
-    private var _stepsOfHistory as Integer;
+    private var _stepsOfHistory as Integer?;
 
 
     //! Constructor
     public function initialize() {
         _minutes = 15;
-        _battChangeInPercent = $.getBattChangeInPercent(1);
+        var battChangeInPercent = $.getBattChangeInPercent(1);
+        if (battChangeInPercent == null) {
+            _battChangeInPercent = 0.0;
+        } else {
+            _battChangeInPercent = battChangeInPercent;
+        }
         _guesstimate = $.guesstimate(_battChangeInPercent, _minutes);
         WatchUi.View.initialize();
     }
@@ -28,7 +33,7 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
     public function onShow() as Void {
     }
 
-    public function setMessage(minutes as Integer, batteryChangeInPercent as Integer, guesstimate as Integer) as Void {
+    public function setMessage(minutes as Integer, batteryChangeInPercent as Float, guesstimate as Integer) as Void {
         _minutes = minutes;
         _battChangeInPercent = batteryChangeInPercent;
         _guesstimate = guesstimate;
@@ -40,7 +45,7 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         View.onUpdate(dc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        var time as String;
+        var time;
         if (_minutes > 120) {
             time = _minutes / 60 + "h";
         } else {

@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 
 class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
     private var _view as BatteryGuesstimateView;
-    private var _stepsOfHistory = 1;
+    private var _stepsOfHistory as Integer = 1;
 
     //! Set up the callback to the view
     //! @param handler Callback method for when data is received

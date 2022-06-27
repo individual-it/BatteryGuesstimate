@@ -7,12 +7,14 @@ import Toybox.System;
 import Toybox.Time;
 import Toybox.Math;
 
-(:background)
+(:background :glance)
 const SIZE_CIRCULAR_BUFFER = 97; // 24h + 1 (so that we can actually calculate over 24h)
+(:glance)
 const MAX_STEPS_TO_CALC = 96; // 24h
+(:glance)
 const MINUTES_IN_ONE_DAY = 1440;
 
-(:background :glance)
+(:background :glance :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 class BatteryGuesstimateApp extends Application.AppBase {
 
     //! Constructor
@@ -33,8 +35,8 @@ class BatteryGuesstimateApp extends Application.AppBase {
     }
 
 
-   function getGlanceView() {
-     return [ new BatteryGuesstimateGlanceView() ];
+   function getGlanceView(){
+     return [ new $.BatteryGuesstimateGlanceView() ] as Array<GlanceView>;
    }
 
     //! Return the initial view for the app
@@ -66,7 +68,7 @@ class MyServiceDelegate extends System.ServiceDelegate {
     public function onTemporalEvent() as Void {
         System.println("onTemporalEvent");
         var circularBufferPosition;
-        circularBufferPosition = Storage.getValue("circular buffer last position");
+        circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
         System.println("circular buffer last position => " + circularBufferPosition);
         if (circularBufferPosition == null) {
             circularBufferPosition = 0;
@@ -87,23 +89,23 @@ class MyServiceDelegate extends System.ServiceDelegate {
 }
 
 (:glance)
-public function getBattChangeInPercent(stepsOfHistory as Integer) {
+public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
     var circularBufferPosition;
     var lastBatValue;
     var startCalculationBatValue;
-    var result as Float;
+    var result;
 
     if (stepsOfHistory > MAX_STEPS_TO_CALC) {
         return null;
     }
     System.println("calculating over " + stepsOfHistory);
-    circularBufferPosition = Storage.getValue("circular buffer last position");
+    circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
     System.println("   till position " + circularBufferPosition);
 
     if (circularBufferPosition == null) {
         return null;
     }
-    lastBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
+    lastBatValue = Storage.getValue("circular buffer " + circularBufferPosition) as Float;
     if (lastBatValue == null) {
         return null;
     }
@@ -112,7 +114,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
         circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition;
     }
     System.println("   from position " + circularBufferPosition);
-    startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition);
+    startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition) as Float;
     if (startCalculationBatValue == null) {
         return null;
     }
@@ -120,7 +122,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) {
 }
 
 (:glance)
-public function formatOutput(batteryChangeInPercent as Float) {
+public function formatOutput(batteryChangeInPercent as Float) as String {
     if (batteryChangeInPercent == null) {
         return "no data";
     }
@@ -128,7 +130,7 @@ public function formatOutput(batteryChangeInPercent as Float) {
 }
 
 (:glance)
-public function guesstimate(percentChange as Float, minutes as Integer) {
+public function guesstimate(percentChange as Float, minutes as Integer) as Integer? {
     if (percentChange == null || percentChange >= 0) {
         return null;
     }
@@ -137,7 +139,7 @@ public function guesstimate(percentChange as Float, minutes as Integer) {
 }
 
 (:glance)
-public function guesstimateFormat(minutes as Integer) {
+public function guesstimateFormat(minutes as Integer) as String{
     if (minutes == null) {
         return "-";
     }
