@@ -6,8 +6,6 @@ import Toybox.Application.Storage;
 import Toybox.Math;
 
 class BatteryGuesstimateView extends WatchUi.View {
-    private var _message as String = "";
-
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -23,10 +21,6 @@ class BatteryGuesstimateView extends WatchUi.View {
     public function onShow() as Void {
     }
 
-    public function setMessage(message as String) as Void {
-        _message = message;
-        WatchUi.requestUpdate();
-    }
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void { 

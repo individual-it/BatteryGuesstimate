@@ -43,7 +43,7 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! @return Array Pair [View, Delegate]
     public function getInitialView() as Array<Views or InputDelegates>? {
         var view = new $.BatteryGuesstimateView();
-        var delegate = new $.BatteryGuesstimateDelegate(view);
+        var delegate = new $.BatteryGuesstimateDelegate();
         return [view, delegate] as Array<Views or InputDelegates>;
     }
 

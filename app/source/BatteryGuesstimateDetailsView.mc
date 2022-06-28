@@ -7,8 +7,6 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
     private var _minutes as Integer;
     private var _battChangeInPercent as Float;
     private var _guesstimate as Integer;
-    private var _stepsOfHistory as Integer?;
-
 
     //! Constructor
     public function initialize() {
