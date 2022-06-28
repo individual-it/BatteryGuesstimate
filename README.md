@@ -35,6 +35,8 @@ The prediction is rather pessimistic, so it will always floor decimal results (a
 ## supported devices
 - Garmin Instinct 2
 - Garmin Instinct 2 Solar
+- Garmin Instinct 2S
+- Garmin Instinct 2S Solar
 
 If you think that tool would be also useful on your device please open an issue or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
 
