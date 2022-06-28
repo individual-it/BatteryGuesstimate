@@ -6,6 +6,7 @@ import Toybox.Application.Storage;
 import Toybox.Math;
 
 class BatteryGuesstimateView extends WatchUi.View {
+    private var _drawingDone as Boolean = false;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -19,36 +20,40 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
+        _drawingDone = false;
     }
 
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void { 
-        View.onUpdate(dc);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        var batteryValue;
-        var y;
-        var circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
-        if (circularBufferPosition == null) {
-            dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            return;
-        }
-
-        for (var x = $.MAX_STEPS_TO_CALC+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
-            batteryValue = Storage.getValue("circular buffer " + circularBufferPosition) as Integer;
-
-            if (batteryValue == null) {
-                batteryValue = -5;
-            } else {
-                batteryValue = batteryValue / 2;
-                batteryValue = Math.round(batteryValue);
+        if (_drawingDone == false) {
+            View.onUpdate(dc);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            var batteryValue;
+            var y;
+            var circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
+            if (circularBufferPosition == null) {
+                dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+                return;
             }
 
-            dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-batteryValue);
-            circularBufferPosition = circularBufferPosition - 1;
-            if (circularBufferPosition < 0) {
-                circularBufferPosition = $.MAX_STEPS_TO_CALC;
+            for (var x = $.MAX_STEPS_TO_CALC+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
+                batteryValue = Storage.getValue("circular buffer " + circularBufferPosition) as Integer;
+
+                if (batteryValue == null) {
+                    batteryValue = -5;
+                } else {
+                    batteryValue = batteryValue / 2;
+                    batteryValue = Math.round(batteryValue);
+                }
+
+                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-batteryValue);
+                circularBufferPosition = circularBufferPosition - 1;
+                if (circularBufferPosition < 0) {
+                    circularBufferPosition = $.MAX_STEPS_TO_CALC;
+                }
             }
+            _drawingDone = true;
         }
     }
 
