@@ -34,15 +34,13 @@ class BatteryGuesstimateView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         var batteryValue;
         var y;
-        var yZeroLine = 140;
-        var xMarginLeft = 20;
         var circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
         if (circularBufferPosition == null) {
             dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             return;
         }
 
-        for (var x = $.MAX_STEPS_TO_CALC+xMarginLeft; x >= xMarginLeft; x -= 1) {
+        for (var x = $.MAX_STEPS_TO_CALC+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
             batteryValue = Storage.getValue("circular buffer " + circularBufferPosition) as Integer;
 
             if (batteryValue == null) {
@@ -52,7 +50,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 batteryValue = Math.round(batteryValue);
             }
 
-            dc.drawLine(x, yZeroLine, x, yZeroLine-batteryValue);
+            dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-batteryValue);
             circularBufferPosition = circularBufferPosition - 1;
             if (circularBufferPosition < 0) {
                 circularBufferPosition = $.MAX_STEPS_TO_CALC;

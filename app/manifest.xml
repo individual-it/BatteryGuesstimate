@@ -4,6 +4,7 @@
     <iq:application entry="BatteryGuesstimateApp" id="05d38102-5aa5-4628-be94-94665e629840" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="3.1.0" name="@Strings.AppName" type="widget">
         <iq:products>
             <iq:product id="instinct2"/>
+            <iq:product id="instinct2s"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Background"/>
