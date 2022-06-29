@@ -2,6 +2,8 @@
 
 Shows the battery consumption over time and estimates how long the battery would last (better than the build-in estimation).
 
+Connect IQ store link: https://apps.garmin.com/en-US/apps/572b8232-7fb6-4e4f-a938-2395d0df3c7c
+
 For questions, please open an issue or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
 
 ## Why do you need it?
