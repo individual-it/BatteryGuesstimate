@@ -13,6 +13,15 @@ const SIZE_CIRCULAR_BUFFER = 97; // 24h + 1 (so that we can actually calculate o
 const MAX_STEPS_TO_CALC = 96; // 24h
 (:glance)
 const MINUTES_IN_ONE_DAY = 1440;
+(:background :glance)
+const CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V1 = "circular buffer last position";
+(:background :glance)
+const CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V1 = "circular buffer ";
+(:background :glance)
+const CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2 = "cBlP";
+(:background :glance)
+const CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 = "cB";
+
 
 (:background :glance :typecheck([disableBackgroundCheck, disableGlanceCheck]))
 class BatteryGuesstimateApp extends Application.AppBase {
@@ -20,6 +29,7 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! Constructor
     public function initialize() {
         AppBase.initialize();
+        $.databaseMigration();
         Background.registerForTemporalEvent(new Time.Duration(15 * 60));
     }
 
@@ -68,7 +78,7 @@ class MyServiceDelegate extends System.ServiceDelegate {
     public function onTemporalEvent() as Void {
         System.println("onTemporalEvent");
         var circularBufferPosition;
-        circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
+        circularBufferPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
         System.println("circular buffer last position => " + circularBufferPosition);
         if (circularBufferPosition == null) {
             circularBufferPosition = 0;
@@ -79,9 +89,9 @@ class MyServiceDelegate extends System.ServiceDelegate {
             circularBufferPosition = 0;
         }
         var systemStats = System.getSystemStats();
-        Storage.setValue("circular buffer " + circularBufferPosition, systemStats.battery);
+        Storage.setValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + circularBufferPosition, systemStats.battery);
         System.println("circular buffer " + circularBufferPosition + " => " + systemStats.battery);
-        Storage.setValue("circular buffer last position", circularBufferPosition);
+        Storage.setValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2, circularBufferPosition);
         Background.exit(true);
     }
     
@@ -99,13 +109,13 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
         return null;
     }
     System.println("calculating over " + stepsOfHistory);
-    circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
+    circularBufferPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
     System.println("   till position " + circularBufferPosition);
 
     if (circularBufferPosition == null) {
         return null;
     }
-    lastBatValue = Storage.getValue("circular buffer " + circularBufferPosition) as Float;
+    lastBatValue = Storage.getValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + circularBufferPosition) as Float;
     if (lastBatValue == null) {
         return null;
     }
@@ -114,7 +124,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
         circularBufferPosition = SIZE_CIRCULAR_BUFFER + circularBufferPosition;
     }
     System.println("   from position " + circularBufferPosition);
-    startCalculationBatValue = Storage.getValue("circular buffer " + circularBufferPosition) as Float;
+    startCalculationBatValue = Storage.getValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + circularBufferPosition) as Float;
     if (startCalculationBatValue == null) {
         return null;
     }
@@ -151,4 +161,25 @@ public function guesstimateFormat(minutes as Integer) as String{
     } else {
         return Math.floor(minutes / MINUTES_IN_ONE_DAY) + "d";
     }
+}
+
+(:background :glance)
+public function databaseMigration() as Boolean {
+    var lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V1);
+    if (lastPosition == null) {
+        // nothing to do
+        return true;
+    }
+    System.println("Migration of DB");
+    System.println("   last position");
+    Storage.setValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2, lastPosition);
+    var value;
+    for (var x = 0; x <= $.SIZE_CIRCULAR_BUFFER; x++) {
+        value = Storage.getValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V1 + x);
+        if (value != null) {
+            System.println("   data " + CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + x);
+            Storage.setValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + x, value);
+        }
+    }
+    return true;
 }

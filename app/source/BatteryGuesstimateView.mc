@@ -31,14 +31,14 @@ class BatteryGuesstimateView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             var batteryValue;
             var y;
-            var circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
+            var circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
             if (circularBufferPosition == null) {
                 dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
                 return;
             }
 
             for (var x = $.MAX_STEPS_TO_CALC+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
-                batteryValue = Storage.getValue("circular buffer " + circularBufferPosition) as Integer;
+                batteryValue = Storage.getValue($.CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + circularBufferPosition) as Integer;
 
                 if (batteryValue == null) {
                     batteryValue = -5;

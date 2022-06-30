@@ -2,9 +2,11 @@ import Toybox.Test;
 import Toybox.Math;
 import Toybox.Application.Storage;
 import Toybox.Lang;
+import Toybox.System;
 
 (:test)
 function getBattChangeInPercentTest(logger as Logger) as Boolean {
+    Storage.clearValues();
     var testCases = 
     [ 
         // 0 => circular buffer last position
@@ -22,9 +24,9 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
     var result;
     for (var testCaseNo = 0; testCaseNo < testCases.size(); testCaseNo++) {
         logger.debug("case " + (testCaseNo+1) + " of " + testCases.size());
-        Storage.setValue("circular buffer last position", testCases[testCaseNo][0]);
+        Storage.setValue("cBlP", testCases[testCaseNo][0]);
         for (var i = 0; i < testCases[testCaseNo][1].size(); i++) {
-            Storage.setValue("circular buffer " + testCases[testCaseNo][1][i][0], testCases[testCaseNo][1][i][1]);
+            Storage.setValue("cB" + testCases[testCaseNo][1][i][0], testCases[testCaseNo][1][i][1]);
         }
         change = getBattChangeInPercent(testCases[testCaseNo][2]);
         if (assertEqualFloat(logger, change, testCases[testCaseNo][3]) == false) {
@@ -35,7 +37,59 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
 
 }
 
+(:test)
+function databaseMigrationLastPosition(logger as Logger) as Boolean {
+    Storage.clearValues();
+    Storage.setValue("circular buffer last position", 10);
+    $.databaseMigration();
+    var circularBufferPosition = Storage.getValue("cBlP") as Integer;
+    return assertEqual(logger, circularBufferPosition, 10);
+}
+
+(:test)
+function databaseMigrationLastPositionNoMigration(logger as Logger) as Boolean {
+    Storage.clearValues();
+    Storage.setValue("cBlP", 13);
+    $.databaseMigration();
+    var circularBufferPosition = Storage.getValue("cBlP") as Integer;
+    return assertEqual(logger, circularBufferPosition, 13);
+}
+
+(:test)
+function databaseMigrationData(logger as Logger) as Boolean {
+    Storage.clearValues();
+    Storage.setValue("circular buffer last position", 10);
+    Storage.setValue("circular buffer 0", 0.90923);
+    Storage.setValue("circular buffer 10", 10.90923);
+    Storage.setValue("circular buffer 97", 97.90923);
+
+    $.databaseMigration();
+    var circularBuffer0 = Storage.getValue("cB0") as Float;
+    var circularBuffer10 = Storage.getValue("cB10") as Float;
+    var circularBuffer97 = Storage.getValue("cB97") as Float;
+    if (
+        assertEqualFloat(logger, circularBuffer0, 0.90923) &&
+        assertEqualFloat(logger, circularBuffer10, 10.90923) &&
+        assertEqualFloat(logger, circularBuffer97, 97.90923)
+
+    ) {
+        return true;
+    }
+    return false;
+}
+
+function assertEqual(logger as Logger, actual as Integer?, expected as Integer?) as Boolean {
+    if ( actual != expected ) {
+        logger.error("expected " + expected + " actual " + actual);
+        return false;
+    }
+    return true;
+}
+
 function assertEqualFloat(logger as Logger, actual as Float, expected as Float) as Boolean {
+    if (actual == null or expected == null) {
+        logger.error("Float expected, null given");
+    }
     var result = actual - expected;
     if ( result > 0.00001 || result < -0.00001 ) {
         logger.error("expected " + expected + " actual " + actual);
