@@ -48,8 +48,11 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
             var time;
-            if (_minutes > 120) {
-                time = _minutes / 60 + "h";
+            if (_minutes > 1440) {
+                time = _minutes / 1440 + "days";
+            }
+            else if (_minutes > 120) {
+                time = _minutes / 60 + "hours";
             } else {
                 time = _minutes + "min";
             }

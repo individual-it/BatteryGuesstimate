@@ -13,7 +13,9 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
 
     //! @return true if handled, false otherwise
     public function onPreviousPage() as Boolean {
-        if (_stepsOfHistory >= 24) {
+        if (_stepsOfHistory >= 96) {
+            _stepsOfHistory = _stepsOfHistory + 96;
+        } else if (_stepsOfHistory >= 24) {
             _stepsOfHistory = _stepsOfHistory + 12;
         } else if (_stepsOfHistory >= 8) {
             _stepsOfHistory = _stepsOfHistory + 4;
@@ -34,8 +36,10 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
             _stepsOfHistory = _stepsOfHistory - 1;
         } else if (_stepsOfHistory <= 24) {
             _stepsOfHistory = _stepsOfHistory - 4;
-        } else {
+        } else if (_stepsOfHistory <= 96){
             _stepsOfHistory = _stepsOfHistory - 12;
+        } else {
+            _stepsOfHistory = _stepsOfHistory - 96;
         }
 
         if (_stepsOfHistory < 1){

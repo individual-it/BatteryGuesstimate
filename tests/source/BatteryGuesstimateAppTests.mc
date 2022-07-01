@@ -15,9 +15,10 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
         // 3 => expected result
         [1, [ [0, 10.123], [1, 9.100] ], 1, -1.023000],
         [1, [ [0, 10.123], [1, 12.123] ], 1, 2.0], // charging
-        [2, [ [93, 9.2], [94, 10.2], [95, 11.2], [2, 8.200] ], 5, -2.0],  // over the end of the buffer
-        [97, [ [96, 9.2], [97, 10.2], ], 1, 1.0],
-        [2, [ [1, 4.2], [2, 3.2], [3, 0.2], ], 96, 3.0], // 24h
+        [2, [ [1341, 9.2], [1342, 10.2], [1343, 11.2], [2, 8.200] ], 5, -2.0],  // over the end of the buffer
+        [1345, [ [1344, 9.2], [1345, 10.2], ], 1, 1.0],
+        [2, [ [1, 4.2], [2, 3.2], [1251, 0.2], ], 96, 3.0], // 24h
+        [2, [ [1, 4.2], [2, 3.2], [3, 0.2], ], 1344, 3.0], // 14days
 
     ];
     var change;
@@ -26,7 +27,7 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
         logger.debug("case " + (testCaseNo+1) + " of " + testCases.size());
         Storage.setValue("cBlP", testCases[testCaseNo][0]);
         for (var i = 0; i < testCases[testCaseNo][1].size(); i++) {
-            Storage.setValue("cB" + testCases[testCaseNo][1][i][0], testCases[testCaseNo][1][i][1]);
+            Storage.setValue(testCases[testCaseNo][1][i][0], testCases[testCaseNo][1][i][1]);
         }
         change = getBattChangeInPercent(testCases[testCaseNo][2]);
         if (assertEqualFloat(logger, change, testCases[testCaseNo][3]) == false) {
@@ -60,18 +61,40 @@ function databaseMigrationDataMigration(logger as Logger) as Boolean {
     Storage.clearValues();
     Storage.setValue("circular buffer last position", 10);
     Storage.setValue("circular buffer 0", 0.90923);
+    Storage.setValue("circular buffer 9", 9.90923);
     Storage.setValue("circular buffer 10", 10.90923);
+    Storage.setValue("circular buffer 11", 11.90923);
+    Storage.setValue("circular buffer 95", 95.90923);
+    Storage.setValue("circular buffer 96", 96.90923);
     Storage.setValue("circular buffer 97", 97.90923);
 
+
     $.databaseMigration();
-    var circularBuffer0 = Storage.getValue("cB0") as Float;
-    var circularBuffer10 = Storage.getValue("cB10") as Float;
-    var circularBuffer97 = Storage.getValue("cB97") as Float;
+    var circularBuffer0 = Storage.getValue(0) as Float;
+    var circularBuffer9 = Storage.getValue(9) as Float;
+    var circularBuffer10 = Storage.getValue(10) as Float;
+    var circularBuffer11 = Storage.getValue(11) as Float?;
+    var circularBuffer95 = Storage.getValue(95) as Float?;
+    var circularBuffer96 = Storage.getValue(96) as Float?;
+    var circularBuffer97 = Storage.getValue(97) as Float?;
+    var circularBuffer1259 = Storage.getValue(1259) as Float;
+    var circularBuffer1343 = Storage.getValue(1343) as Float;
+    var circularBuffer1344 = Storage.getValue(1344) as Float;
+    var circularBuffer1345 = Storage.getValue(1345) as Float;
 
     if (
         assertEqualFloat(logger, circularBuffer0, 0.90923) &&
+        assertEqualFloat(logger, circularBuffer9, 9.90923) &&
         assertEqualFloat(logger, circularBuffer10, 10.90923) &&
-        assertEqualFloat(logger, circularBuffer97, 97.90923)
+        assertEqualFloat(logger, circularBuffer1259, 11.90923) &&
+        assertEqualFloat(logger, circularBuffer1343, 95.90923) &&
+        assertEqualFloat(logger, circularBuffer1344, 96.90923) &&
+        assertEqualFloat(logger, circularBuffer1345, 97.90923) &&
+        circularBuffer11 == null &&
+        circularBuffer95 == null &&
+        circularBuffer96 == null &&
+        circularBuffer97 == null
+        
     ) {
         return true;
     }
@@ -88,9 +111,9 @@ function databaseMigrationOldDataClearing(logger as Logger) as Boolean {
     Storage.setValue("circular buffer 97", 97.90923);
 
     $.databaseMigration();
-    var circularBuffer0 = Storage.getValue("cB0") as Float;
-    var circularBuffer10 = Storage.getValue("cB10") as Float;
-    var circularBuffer97 = Storage.getValue("cB97") as Float;
+    var circularBuffer0 = Storage.getValue(0) as Float;
+    var circularBuffer10 = Storage.getValue(10) as Float;
+    var circularBuffer97 = Storage.getValue(97) as Float;
 
     if (Storage.getValue("circular buffer last position") != null) {
         logger.error("circular buffer last position is not cleared");
@@ -106,6 +129,7 @@ function databaseMigrationOldDataClearing(logger as Logger) as Boolean {
     }
     return true;
 }
+
 
 function assertEqual(logger as Logger, actual as Integer?, expected as Integer?) as Boolean {
     if ( actual != expected ) {
@@ -135,7 +159,7 @@ function randomBattery(logger as Logger) as Boolean {
     var rand;
     var RAND_MAX = 2147483647.0;
     for (var i = 0; i <= SIZE_CIRCULAR_BUFFER; i++) {
-        circularBufferPosition = Storage.getValue("circular buffer last position") as Integer;
+        circularBufferPosition = Storage.getValue("cBlP") as Integer;
         if (circularBufferPosition == null) {
             circularBufferPosition = 0;
         } else {
@@ -145,10 +169,10 @@ function randomBattery(logger as Logger) as Boolean {
             circularBufferPosition = 0;
         }
         
-        Storage.setValue("circular buffer " + circularBufferPosition, fakeBatteryValue);
-        Storage.setValue("circular buffer last position", circularBufferPosition);
+        Storage.setValue(circularBufferPosition, fakeBatteryValue);
+        Storage.setValue("cBlP", circularBufferPosition);
         rand = Math.rand() / (RAND_MAX/3.0);
-        if (fakeBatteryValue < 90 && i < 20) {
+        if ((fakeBatteryValue < 90 && i < 20) || fakeBatteryValue < 10) {
             fakeBatteryValue = fakeBatteryValue + (rand * 10);
         } else {
             fakeBatteryValue = fakeBatteryValue - (rand / 2);

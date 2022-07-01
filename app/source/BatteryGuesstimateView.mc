@@ -7,6 +7,7 @@ import Toybox.Math;
 
 class BatteryGuesstimateView extends WatchUi.View {
     private var _drawingDone as Boolean = false;
+    var _stepsToShowInGraph = 96;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -37,8 +38,8 @@ class BatteryGuesstimateView extends WatchUi.View {
                 return;
             }
 
-            for (var x = $.MAX_STEPS_TO_CALC+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
-                batteryValue = Storage.getValue($.CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + circularBufferPosition) as Integer;
+            for (var x = _stepsToShowInGraph+$.X_MARGIN_LEFT; x >= $.X_MARGIN_LEFT; x -= 1) {
+                batteryValue = Storage.getValue(circularBufferPosition) as Integer;
 
                 if (batteryValue == null) {
                     batteryValue = -5;
