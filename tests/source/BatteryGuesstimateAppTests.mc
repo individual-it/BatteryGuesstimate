@@ -56,7 +56,7 @@ function databaseMigrationLastPositionNoMigration(logger as Logger) as Boolean {
 }
 
 (:test)
-function databaseMigrationData(logger as Logger) as Boolean {
+function databaseMigrationDataMigration(logger as Logger) as Boolean {
     Storage.clearValues();
     Storage.setValue("circular buffer last position", 10);
     Storage.setValue("circular buffer 0", 0.90923);
@@ -67,15 +67,44 @@ function databaseMigrationData(logger as Logger) as Boolean {
     var circularBuffer0 = Storage.getValue("cB0") as Float;
     var circularBuffer10 = Storage.getValue("cB10") as Float;
     var circularBuffer97 = Storage.getValue("cB97") as Float;
+
     if (
         assertEqualFloat(logger, circularBuffer0, 0.90923) &&
         assertEqualFloat(logger, circularBuffer10, 10.90923) &&
         assertEqualFloat(logger, circularBuffer97, 97.90923)
-
     ) {
         return true;
     }
     return false;
+}
+
+
+(:test)
+function databaseMigrationOldDataClearing(logger as Logger) as Boolean {
+    Storage.clearValues();
+    Storage.setValue("circular buffer last position", 10);
+    Storage.setValue("circular buffer 0", 0.90923);
+    Storage.setValue("circular buffer 10", 10.90923);
+    Storage.setValue("circular buffer 97", 97.90923);
+
+    $.databaseMigration();
+    var circularBuffer0 = Storage.getValue("cB0") as Float;
+    var circularBuffer10 = Storage.getValue("cB10") as Float;
+    var circularBuffer97 = Storage.getValue("cB97") as Float;
+
+    if (Storage.getValue("circular buffer last position") != null) {
+        logger.error("circular buffer last position is not cleared");
+        return false;
+    }
+    if (
+        Storage.getValue("circular buffer 0") != null ||
+        Storage.getValue("circular buffer 10") != null ||
+        Storage.getValue("circular buffer 97") != null
+    ) {
+        logger.error("circular buffer data is not cleared");
+        return false;
+    }
+    return true;
 }
 
 function assertEqual(logger as Logger, actual as Integer?, expected as Integer?) as Boolean {

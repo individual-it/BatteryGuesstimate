@@ -173,12 +173,14 @@ public function databaseMigration() as Boolean {
     System.println("Migration of DB");
     System.println("   last position");
     Storage.setValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2, lastPosition);
+    Storage.deleteValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V1);
     var value;
     for (var x = 0; x <= $.SIZE_CIRCULAR_BUFFER; x++) {
         value = Storage.getValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V1 + x);
         if (value != null) {
             System.println("   data " + CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + x);
             Storage.setValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V2 + x, value);
+            Storage.deleteValue(CIRCULAR_BUFFER_STORAGE_NAME_PREFIX_V1 + x);
         }
     }
     return true;
