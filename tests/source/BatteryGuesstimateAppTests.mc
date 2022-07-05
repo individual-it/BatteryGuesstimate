@@ -30,9 +30,7 @@ function getBattChangeInPercentTest(logger as Logger) as Boolean {
             Storage.setValue(testCases[testCaseNo][1][i][0], testCases[testCaseNo][1][i][1]);
         }
         change = getBattChangeInPercent(testCases[testCaseNo][2]);
-        if (assertEqualFloat(logger, change, testCases[testCaseNo][3]) == false) {
-            return false;
-        }
+        assertEqualFloat(logger, change, testCases[testCaseNo][3]);
     }
     return true;
 
@@ -48,7 +46,7 @@ function databaseMigrationLastPosition(logger as Logger) as Boolean {
 }
 
 (:test)
-function databaseMigrationLastPositionNoMigration(logger as Logger) as Boolean {
+function databaseMigrationMigrationDone(logger as Logger) as Boolean {
     Storage.clearValues();
     Storage.setValue("cBlP", 13);
     $.databaseMigration();
@@ -82,14 +80,14 @@ function databaseMigrationDataMigration(logger as Logger) as Boolean {
     var circularBuffer1344 = Storage.getValue(1344) as Float;
     var circularBuffer1345 = Storage.getValue(1345) as Float;
 
+    assertEqualFloat(logger, circularBuffer0, 0.90923);
+    assertEqualFloat(logger, circularBuffer9, 9.90923);
+    assertEqualFloat(logger, circularBuffer10, 10.90923);
+    assertEqualFloat(logger, circularBuffer1259, 11.90923);
+    assertEqualFloat(logger, circularBuffer1343, 95.90923);
+    assertEqualFloat(logger, circularBuffer1344, 96.90923);
+    assertEqualFloat(logger, circularBuffer1345, 97.90923);
     if (
-        assertEqualFloat(logger, circularBuffer0, 0.90923) &&
-        assertEqualFloat(logger, circularBuffer9, 9.90923) &&
-        assertEqualFloat(logger, circularBuffer10, 10.90923) &&
-        assertEqualFloat(logger, circularBuffer1259, 11.90923) &&
-        assertEqualFloat(logger, circularBuffer1343, 95.90923) &&
-        assertEqualFloat(logger, circularBuffer1344, 96.90923) &&
-        assertEqualFloat(logger, circularBuffer1345, 97.90923) &&
         circularBuffer11 == null &&
         circularBuffer95 == null &&
         circularBuffer96 == null &&
@@ -130,11 +128,9 @@ function databaseMigrationOldDataClearing(logger as Logger) as Boolean {
     return true;
 }
 
-
 function assertEqual(logger as Logger, actual as Integer?, expected as Integer?) as Boolean {
     if ( actual != expected ) {
-        logger.error("expected " + expected + " actual " + actual);
-        return false;
+        Test.assertMessage(false, "expected " + expected + " actual " + actual);
     }
     return true;
 }
@@ -145,8 +141,7 @@ function assertEqualFloat(logger as Logger, actual as Float, expected as Float) 
     }
     var result = actual - expected;
     if ( result > 0.00001 || result < -0.00001 ) {
-        logger.error("expected " + expected + " actual " + actual);
-        return false;
+        Test.assertMessage(false, "expected " + expected + " actual " + actual);
     }
     return true;
 }
@@ -169,14 +164,19 @@ function randomBattery(logger as Logger) as Boolean {
             circularBufferPosition = 0;
         }
         
-        Storage.setValue(circularBufferPosition, fakeBatteryValue);
-        Storage.setValue("cBlP", circularBufferPosition);
+
         rand = Math.rand() / (RAND_MAX/3.0);
-        if ((fakeBatteryValue < 90 && i < 20) || fakeBatteryValue < 10) {
+        if ((fakeBatteryValue < 90 && i < 20) || fakeBatteryValue < 30) {
             fakeBatteryValue = fakeBatteryValue + (rand * 10);
         } else {
             fakeBatteryValue = fakeBatteryValue - (rand / 2);
         }
+
+        if (fakeBatteryValue > 100) {
+            fakeBatteryValue = 100;
+        }
+        Storage.setValue(circularBufferPosition, fakeBatteryValue);
+        Storage.setValue("cBlP", circularBufferPosition);
     }
     return true;
 }

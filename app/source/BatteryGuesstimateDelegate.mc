@@ -2,12 +2,23 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 
 class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
-    public function initialize() {
+    var _view as BatteryGuesstimateView;
+    public function initialize(view as BatteryGuesstimateView) {
+        _view = view;
         WatchUi.BehaviorDelegate.initialize();
     }
 
     //! @return true if handled, false otherwise
-    public function onMenu() as Boolean {
+    public function onNextPage() as Boolean {
+        var stepsToShowInGraph = _view.getStepsToShowInGraph() / 2;
+        _view.setStepsToShowInGraph(stepsToShowInGraph);
+        return true;
+    }
+
+    //! @return true if handled, false otherwise
+    public function onPreviousPage() as Boolean {
+        var stepsToShowInGraph = _view.getStepsToShowInGraph() * 2;
+        _view.setStepsToShowInGraph(stepsToShowInGraph);
         return true;
     }
 
