@@ -47,6 +47,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         if (_drawingDone == false) {
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            $.drawButtonHint(dc);
             var graphData = getGraphData(_stepsToShowInGraph);
             var x;
             if (graphData == null) {

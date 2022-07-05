@@ -58,6 +58,7 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
             }
 
             $.drawButtonHintBorder(dc);
+            $.drawButtonHint(dc);
 
             dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
             dc.drawText($.X_POS_DATA, 87, Graphics.FONT_MEDIUM, $.formatOutput(_battChangeInPercent), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
