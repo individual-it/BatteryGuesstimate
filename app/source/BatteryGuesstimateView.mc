@@ -43,8 +43,9 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Update the view
     //! @param dc Device Context
-    public function onUpdate(dc as Dc) as Void { 
+    public function onUpdate(dc as Dc) as Void {
         if (_drawingDone == false) {
+            var timeText = "24h";
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             $.drawButtonHint(dc);
@@ -62,6 +63,17 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
             _drawingDone = true;
         }
+
+        if (_stepsToShowInGraph > 96) {
+            timeText = (_stepsToShowInGraph / 96) + "days";
+        }
+        dc.drawText(
+            dc.getWidth() / 2, dc.getHeight() - 10,
+            Graphics.FONT_MEDIUM,
+            timeText,
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+        );
+
     }
 
     // placed in a seperate function to make it testable
