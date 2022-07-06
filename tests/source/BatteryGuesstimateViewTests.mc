@@ -67,3 +67,25 @@ function getGraphDataNoData(logger as Logger) as Boolean {
     return true;
 }
 
+(:test)
+function getGraphDataNotEnoughData(logger as Logger) as Boolean {
+    var view = new BatteryGuesstimateView();
+    Storage.clearValues();
+    Storage.setValue("cBlP", 5);
+    for (var i = 0; i<=5; i++) {
+        Storage.setValue(i, 15.0);
+    }
+    var graphData = view.getGraphData(96);
+    assertEqualFloat(logger, graphData[95], 15.0);
+    assertEqualFloat(logger, graphData[94], 15.0);
+    assertEqualFloat(logger, graphData[90], 15.0);
+    assertEqualFloat(logger, graphData[89], 0.0);
+    assertEqualFloat(logger, graphData[0], 0.0);
+
+    graphData = view.getGraphData(384);
+    assertEqualFloat(logger, graphData[95], 15.0);
+    assertEqualFloat(logger, graphData[94], 7.50);
+    assertEqualFloat(logger, graphData[93], 0.0);
+
+    return true;
+}

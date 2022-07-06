@@ -92,7 +92,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 var storageValue = Storage.getValue(circularBufferPosition) as Integer;
 
                 if (storageValue == null) {
-                    batteryValue = 0;
+                    storageValue = 0;
                 }
                 batteryValue = batteryValue + storageValue;
                 circularBufferPosition = circularBufferPosition - 1;
