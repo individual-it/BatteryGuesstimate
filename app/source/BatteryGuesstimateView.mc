@@ -37,7 +37,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         } else {
             _stepsToShowInGraph = steps;
         }
-
+        _drawingDone = false;
         WatchUi.requestUpdate();
     }
 
@@ -62,17 +62,17 @@ class BatteryGuesstimateView extends WatchUi.View {
                 dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-graphData[i]);
             }
             _drawingDone = true;
-        }
 
-        if (_stepsToShowInGraph > 96) {
-            timeText = (_stepsToShowInGraph / 96) + "days";
+            if (_stepsToShowInGraph > 96) {
+                timeText = (_stepsToShowInGraph / 96) + "days";
+            }
+            dc.drawText(
+                dc.getWidth() / 2, dc.getHeight() - 15,
+                Graphics.FONT_MEDIUM,
+                timeText,
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
         }
-        dc.drawText(
-            dc.getWidth() / 2, dc.getHeight() - 15,
-            Graphics.FONT_MEDIUM,
-            timeText,
-            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-        );
 
     }
 

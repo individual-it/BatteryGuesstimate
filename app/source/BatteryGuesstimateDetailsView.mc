@@ -57,7 +57,6 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
                 time = _minutes + "min";
             }
 
-            $.drawButtonHintBorder(dc);
             $.drawButtonHint(dc);
 
             dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
