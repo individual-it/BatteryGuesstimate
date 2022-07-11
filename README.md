@@ -21,6 +21,7 @@ The prediction is rather pessimistic, so it will always floor decimal results (a
 ## Screenshots
 ![glance](screenshots/glance.png)
 ![battery chart](screenshots/battery-chart.png)
+![battery chart 14days](screenshots/battery-chart-14d.png)
 ![details 15min](screenshots/details-15min.png)
 ![details 21h](screenshots/details-21h.png)
 
@@ -28,6 +29,7 @@ The prediction is rather pessimistic, so it will always floor decimal results (a
 ## Usage
 - add the app to your glance carousel
 - in the glance view press the GPS button to view the battery graph
+- in the graph view use the UP/DOWN buttons to cycle through the different time periods
 - in the graph view press the GPS button to view details of different time periods
 - in the details view use the UP/DOWN buttons to cycle through the different time periods
 
