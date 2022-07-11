@@ -152,6 +152,7 @@ function randomBattery(logger as Logger) as Boolean {
     var circularBufferPosition = 0;
     var fakeBatteryValue = 10.2123433;
     var rand;
+    var rand2;
     var RAND_MAX = 2147483647.0;
     for (var i = 0; i <= SIZE_CIRCULAR_BUFFER; i++) {
         circularBufferPosition = Storage.getValue("cBlP") as Integer;
@@ -165,16 +166,24 @@ function randomBattery(logger as Logger) as Boolean {
         }
         
 
-        rand = Math.rand() / (RAND_MAX/3.0);
-        if ((fakeBatteryValue < 90 && i < 20) || fakeBatteryValue < 30) {
-            fakeBatteryValue = fakeBatteryValue + (rand * 10);
+        rand = Math.rand() / (RAND_MAX/5.0);
+        rand2 = Math.rand() / (RAND_MAX/0.2);
+        if ((fakeBatteryValue < 90 && i < 100) || (fakeBatteryValue < 80 && rand > 4.2 && i > 800 && i < 1000)) {
+            fakeBatteryValue = fakeBatteryValue + rand;
         } else {
-            fakeBatteryValue = fakeBatteryValue - (rand / 2);
+            fakeBatteryValue = fakeBatteryValue - rand2;
         }
 
         if (fakeBatteryValue > 100) {
             fakeBatteryValue = 100;
         }
+        if (fakeBatteryValue < 10) {
+            fakeBatteryValue = rand;
+        }
+        System.println("i " + i);
+        System.println("rand " + rand);
+        System.println("rand2 " + rand2);
+        System.println("fakeBatteryValue " + fakeBatteryValue);
         Storage.setValue(circularBufferPosition, fakeBatteryValue);
         Storage.setValue("cBlP", circularBufferPosition);
     }
