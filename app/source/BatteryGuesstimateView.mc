@@ -8,7 +8,8 @@ import Toybox.Math;
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 class BatteryGuesstimateView extends WatchUi.View {
     private var _drawingDone as Boolean = false;
-    var _stepsToShowInGraph = GRAPH_WIDTH;
+    private var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
+    private var _graphData as Array<Float>?;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -30,12 +31,15 @@ class BatteryGuesstimateView extends WatchUi.View {
     }
 
     public function setStepsToShowInGraph(steps as Integer) as Void {
-        if (steps < GRAPH_WIDTH) {
-            _stepsToShowInGraph = GRAPH_WIDTH;
-        } else if (steps > $.MAX_STEPS_TO_CALC) {
-            _stepsToShowInGraph = $.MAX_STEPS_TO_CALC;
-        } else {
-            _stepsToShowInGraph = steps;
+        if (steps != _stepsToShowInGraph) {
+            if (steps < GRAPH_WIDTH) {
+                _stepsToShowInGraph = GRAPH_WIDTH;
+            } else if (steps > $.MAX_STEPS_TO_CALC) {
+                _stepsToShowInGraph = $.MAX_STEPS_TO_CALC;
+            } else {
+                _stepsToShowInGraph = steps;
+            }
+            _graphData = null;
         }
         _drawingDone = false;
         WatchUi.requestUpdate();
@@ -49,17 +53,18 @@ class BatteryGuesstimateView extends WatchUi.View {
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             $.drawButtonHint(dc);
-            var graphData = getGraphData(_stepsToShowInGraph);
+            if (_graphData == null) {
+                _graphData = getGraphData(_stepsToShowInGraph);
+            }
             var x;
-            if (graphData == null) {
+            if (_graphData == null) {
                 dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
                 return;
             }
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
                 x = i+$.X_MARGIN_LEFT;
-                graphData[i] = Math.round(graphData[i] / 2);
-                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-graphData[i]);
+                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-Math.round(_graphData[i] / 2));
             }
             _drawingDone = true;
 
@@ -77,7 +82,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     }
 
     // placed in a seperate function to make it testable
-    public function getGraphData(stepsToShowInGraph as Integer) as Array? {
+    public function getGraphData(stepsToShowInGraph as Integer) as Array<Float>? {
         var dataAarray = new [GRAPH_WIDTH];
         var batteryValue = 0;
         var circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
