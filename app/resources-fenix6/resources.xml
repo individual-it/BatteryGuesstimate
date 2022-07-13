@@ -1,0 +1,27 @@
+<resources>
+    <layout id="ChartLayout">
+        <label x="35%" y="10%" text="BATTERY\nCHART" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SMALL" />
+        <label x="130" y="85" text="100%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="130" y="110" text="50%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="130" y="140" text="0%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <drawable id="ChartBackground"/>
+        <drawable id="Magnifier"/>
+    </layout>
+    <layout id="DetailsLayout">
+        <label x="90" y="68" text="BATTERY" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="90" y="87" text="CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="90" y="125" text="TIME " color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="90" y="145" text="LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+    </layout>
+
+
+    <drawable-list id="ChartBackground" width="100" height="50" x="20" y="90" background="Gfx.COLOR_BLACK">
+        <shape type="rectangle" x="0" y="0" width="100" height="1"  color="Gfx.COLOR_WHITE" />
+        <shape type="rectangle" x="0" y="25" width="100" height="1"  color="Gfx.COLOR_WHITE" />
+        <shape type="rectangle" x="0" y="50" width="100" height="1"  color="Gfx.COLOR_WHITE" />
+    </drawable-list>
+    <drawable-list id="Magnifier" width="60" height="60" x="114" y="1" background="Gfx.COLOR_TRANSPARENT">
+        <shape type="circle" x="31" y="31" radius="31" border_width="0" color="Gfx.COLOR_WHITE" />
+        <bitmap id="magnifier" x="0" y="0" filename="./images/magnifier.png" />   
+    </drawable-list>
+</resources>

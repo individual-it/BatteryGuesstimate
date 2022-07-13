@@ -49,9 +49,14 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! Return the initial view for the app
     //! @return Array Pair [View, Delegate]
     public function getInitialView() as Array<Views or InputDelegates>? {
-        var view = new $.BatteryGuesstimateView();
-        var delegate = new $.BatteryGuesstimateDelegate(view);
-        return [view, delegate] as Array<Views or InputDelegates>;
+        if (System.getDeviceSettings().isGlanceModeEnabled == true) {
+            var view = new $.BatteryGuesstimateView();
+            var delegate = new $.BatteryGuesstimateDelegate(view);
+            return [view, delegate] as Array<Views or InputDelegates>;
+        } else {
+            var view = new $.BatteryGuesstimateCarusselView();
+            return [view] as Array<Views>;
+        }
     }
 
     public function getServiceDelegate() as Array<ServiceDelegate>{
