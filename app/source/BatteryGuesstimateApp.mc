@@ -191,7 +191,7 @@ public function databaseMigration() as Boolean {
     }
 
     // move data to new position of the circular buffer
-    lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2);
+    lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
     for (var x = lastPosition + 1; x <= 97; x++) {
         var newPosition = x + 1248;
         System.println("   move data from position " + x + " to " + newPosition );

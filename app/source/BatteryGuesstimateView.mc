@@ -8,7 +8,7 @@ import Toybox.Math;
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 class BatteryGuesstimateView extends WatchUi.View {
     private var _drawingDone as Boolean = false;
-    var _stepsToShowInGraph = GRAPH_WIDTH;
+    var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -58,8 +58,8 @@ class BatteryGuesstimateView extends WatchUi.View {
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
                 x = i+$.X_MARGIN_LEFT;
-                graphData[i] = Math.round(graphData[i] / 2);
-                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-graphData[i]);
+                graphData[i] = Math.round(graphData[i] as Float / 2);
+                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-graphData[i]  as Float);
             }
             _drawingDone = true;
 
