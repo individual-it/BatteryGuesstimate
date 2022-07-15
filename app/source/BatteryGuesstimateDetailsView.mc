@@ -60,8 +60,20 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
             $.drawButtonHint(dc);
 
             dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
-            dc.drawText($.X_POS_DATA, 87, Graphics.FONT_MEDIUM, $.formatOutput(_battChangeInPercent), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
-            dc.drawText($.X_POS_DATA, 145, Graphics.FONT_MEDIUM, $.guesstimateFormat(_guesstimate), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER );
+            dc.drawText(
+                $.X_POS_DATA,
+                $.Y_POS_BATT_CHANGE_IN_PERCENT,
+                Graphics.FONT_MEDIUM,
+                $.formatOutput(_battChangeInPercent),
+                Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            dc.drawText(
+                $.X_POS_DATA,
+                $.Y_POS_BATT_GUESSTIMATE,
+                Graphics.FONT_MEDIUM,
+                $.guesstimateFormat(_guesstimate),
+                Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
+            );
             _drawingDone = true;
         }
     }

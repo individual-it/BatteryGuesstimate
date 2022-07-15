@@ -66,12 +66,8 @@ class BatteryGuesstimateView extends WatchUi.View {
             if (_stepsToShowInGraph > 96) {
                 timeText = (_stepsToShowInGraph / 96) + "days";
             }
-            dc.drawText(
-                dc.getWidth() / 2, dc.getHeight() - 15,
-                Graphics.FONT_MEDIUM,
-                timeText,
-                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-            );
+
+            $.drawTimeText(dc, timeText);
         }
 
     }

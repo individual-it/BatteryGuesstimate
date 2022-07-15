@@ -13,3 +13,12 @@ function drawButtonHint(dc as Dc) as Void {
     dc.drawLine(15, 120, 10, 130);
     dc.drawLine(10, 130, 0, 130);
 }
+
+function drawTimeText(dc as Dc, timeText as String) as Void {
+    dc.drawText(
+        dc.getWidth() / 2, dc.getHeight() - 15,
+        Graphics.FONT_MEDIUM,
+        timeText,
+        Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+    );
+}
