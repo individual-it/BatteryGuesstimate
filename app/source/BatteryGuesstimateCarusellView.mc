@@ -3,7 +3,7 @@ using Toybox.Graphics as Gfx;
 using Toybox.System;
 import Toybox.Lang;
 
-class BatteryGuesstimateCarusselView extends WatchUi.View {
+class BatteryGuesstimateCarusellView extends WatchUi.View {
 
   var _heading as String = "BATTERY\nGUESSTIMATE";
 

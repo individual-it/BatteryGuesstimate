@@ -55,7 +55,7 @@ class BatteryGuesstimateApp extends Application.AppBase {
             view = new $.BatteryGuesstimateView();
             delegate = new $.BatteryGuesstimateDelegate(view);
         } else {
-            view = new $.BatteryGuesstimateCarusselView();
+            view = new $.BatteryGuesstimateCarusellView();
             delegate =  new $.BatteryGuesstimateCarusellDelegate();
         }
         return [view, delegate] as Array<Views or InputDelegates>;
