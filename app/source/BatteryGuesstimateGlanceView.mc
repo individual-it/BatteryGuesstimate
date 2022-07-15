@@ -15,7 +15,8 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
 
   function onUpdate(dc) {
     dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
-    dc.drawText(0, 0, HEADING_FONT, _heading, Graphics.TEXT_JUSTIFY_LEFT);
+    var deviceSpecificView = new DeviceGlanceView(dc);
+    deviceSpecificView.drawHeading(_heading);
     var batteryChange = $.getBattChangeInPercent(1);
     if (batteryChange == null) {
       batteryChange = 0.0;
