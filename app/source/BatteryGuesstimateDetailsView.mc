@@ -44,6 +44,8 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void { 
         if (_drawingDone == false) {
+            var deviceSpecificView = new DeviceView();
+
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
@@ -57,20 +59,20 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
                 time = _minutes + "min";
             }
 
-            $.drawButtonHint(dc);
+            deviceSpecificView.drawButtonHint(dc);
 
             dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
-            var deviceSpecificView = new DeviceDetailsView();
+            var deviceSpecificDetailsView = new DeviceDetailsView();
             dc.drawText(
-                deviceSpecificView.X_POS_DATA,
-                deviceSpecificView.Y_POS_BATT_CHANGE_IN_PERCENT,
+                deviceSpecificDetailsView.X_POS_DATA,
+                deviceSpecificDetailsView.Y_POS_BATT_CHANGE_IN_PERCENT,
                 Graphics.FONT_MEDIUM,
                 $.formatOutput(_battChangeInPercent),
                 Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
             );
             dc.drawText(
-                deviceSpecificView.X_POS_DATA,
-                deviceSpecificView.Y_POS_BATT_GUESSTIMATE,
+                deviceSpecificDetailsView.X_POS_DATA,
+                deviceSpecificDetailsView.Y_POS_BATT_GUESSTIMATE,
                 Graphics.FONT_MEDIUM,
                 $.guesstimateFormat(_guesstimate),
                 Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
