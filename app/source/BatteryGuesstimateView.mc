@@ -8,7 +8,7 @@ import Toybox.Math;
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 class BatteryGuesstimateView extends WatchUi.View {
     private var _drawingDone as Boolean = false;
-    var _stepsToShowInGraph = GRAPH_WIDTH;
+    var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -45,10 +45,11 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
         if (_drawingDone == false) {
+            var deviceSpecificView = new DeviceView();
             var timeText = "24h";
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-            $.drawButtonHint(dc);
+            deviceSpecificView.drawButtonHint(dc);
             var graphData = getGraphData(_stepsToShowInGraph);
             var x;
             if (graphData == null) {
@@ -57,21 +58,17 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
-                x = i+$.X_MARGIN_LEFT;
-                graphData[i] = Math.round(graphData[i] / 2);
-                dc.drawLine(x, $.Y_ZERO_LINE, x, $.Y_ZERO_LINE-graphData[i]);
+                x = i+deviceSpecificView.X_MARGIN_LEFT;
+                graphData[i] = Math.round(graphData[i] as Float / 2);
+                dc.drawLine(x, deviceSpecificView.Y_ZERO_LINE, x, deviceSpecificView.Y_ZERO_LINE-graphData[i]  as Float);
             }
             _drawingDone = true;
 
             if (_stepsToShowInGraph > 96) {
                 timeText = (_stepsToShowInGraph / 96) + "days";
             }
-            dc.drawText(
-                dc.getWidth() / 2, dc.getHeight() - 15,
-                Graphics.FONT_MEDIUM,
-                timeText,
-                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-            );
+
+            deviceSpecificView.drawTimeText(dc, timeText);
         }
 
     }

@@ -49,8 +49,15 @@ class BatteryGuesstimateApp extends Application.AppBase {
     //! Return the initial view for the app
     //! @return Array Pair [View, Delegate]
     public function getInitialView() as Array<Views or InputDelegates>? {
-        var view = new $.BatteryGuesstimateView();
-        var delegate = new $.BatteryGuesstimateDelegate(view);
+        var view;
+        var delegate;
+        if (System.getDeviceSettings().isGlanceModeEnabled == true) {
+            view = new $.BatteryGuesstimateView();
+            delegate = new $.BatteryGuesstimateDelegate(view);
+        } else {
+            view = new $.BatteryGuesstimateCarusellView();
+            delegate =  new $.BatteryGuesstimateCarusellDelegate();
+        }
         return [view, delegate] as Array<Views or InputDelegates>;
     }
 
@@ -184,7 +191,7 @@ public function databaseMigration() as Boolean {
     }
 
     // move data to new position of the circular buffer
-    lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2);
+    lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
     for (var x = lastPosition + 1; x <= 97; x++) {
         var newPosition = x + 1248;
         System.println("   move data from position " + x + " to " + newPosition );
