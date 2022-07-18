@@ -61,8 +61,13 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
 
             deviceSpecificView.drawButtonHint(dc);
 
-            dc.drawText(25, 10, Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT );
             var deviceSpecificDetailsView = new DeviceDetailsView();
+            dc.drawText(
+                deviceSpecificDetailsView.X_POS_TIME,
+                deviceSpecificDetailsView.Y_POS_TIME,
+                Graphics.FONT_LARGE, time, Graphics.TEXT_JUSTIFY_LEFT
+            );
+
             dc.drawText(
                 deviceSpecificDetailsView.X_POS_DATA,
                 deviceSpecificDetailsView.Y_POS_BATT_CHANGE_IN_PERCENT,
