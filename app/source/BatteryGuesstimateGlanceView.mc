@@ -18,16 +18,22 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
     var deviceSpecificView = new DeviceGlanceView(dc);
     deviceSpecificView.drawHeading(_heading);
     var batteryChange = $.getBattChangeInPercent(1);
-    if (batteryChange == null) {
-      batteryChange = 0.0;
+    var output;
+    if (batteryChange instanceof String) {
+      output = batteryChange;
+    } else {
+      var guesstimate = $.guesstimate(batteryChange, 15);
+      output = $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate);
     }
-    var guesstimate = $.guesstimate(batteryChange, 15);
-    dc.drawText(0, 20, Graphics.FONT_XTINY, "15m:" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
+    
+    dc.drawText(0, 20, Graphics.FONT_XTINY, "15m:" + output, Graphics.TEXT_JUSTIFY_LEFT);
     batteryChange = $.getBattChangeInPercent(2);
-    if (batteryChange == null) {
-      batteryChange = 0.0;
+    if (batteryChange instanceof String) {
+      output = batteryChange;
+    } else {
+      var guesstimate = $.guesstimate(batteryChange, 30);
+      output = $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate);
     }
-    guesstimate = $.guesstimate(batteryChange, 30);
-    dc.drawText(0, 40, Graphics.FONT_XTINY, "30m:" + $.formatOutput(batteryChange)+ " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
+    dc.drawText(0, 40, Graphics.FONT_XTINY, "30m:" + output, Graphics.TEXT_JUSTIFY_LEFT);
   }
 }

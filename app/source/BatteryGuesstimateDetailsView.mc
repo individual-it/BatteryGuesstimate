@@ -6,19 +6,23 @@ import Toybox.System;
 class BatteryGuesstimateDetailsView extends WatchUi.View {
     private var _minutes as Integer;
     private var _battChangeInPercent as Float;
-    private var _guesstimate as Integer;
+    private var _guesstimate as Integer or String;
     private var _drawingDone as Boolean = false;
 
     //! Constructor
     public function initialize() {
         _minutes = 15;
-        var battChangeInPercent = $.getBattChangeInPercent(1);
-        if (battChangeInPercent == null) {
-            _battChangeInPercent = 0.0;
+        _battChangeInPercent = 0.0;
+        var battChangeInPercent = $.getBattChangeInPercent(1);       
+        if (battChangeInPercent instanceof String) {
+            _guesstimate = battChangeInPercent;
+            
         } else {
             _battChangeInPercent = battChangeInPercent;
+            _guesstimate = $.guesstimate(_battChangeInPercent, _minutes);
+
         }
-        _guesstimate = $.guesstimate(_battChangeInPercent, _minutes);
+
         WatchUi.View.initialize();
     }
 
@@ -33,7 +37,7 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         _drawingDone = false;
     }
 
-    public function setMessage(minutes as Integer, batteryChangeInPercent as Float, guesstimate as Integer) as Void {
+    public function setMessage(minutes as Integer, batteryChangeInPercent as Float, guesstimate as Integer or String) as Void {
         _minutes = minutes;
         _battChangeInPercent = batteryChangeInPercent;
         _guesstimate = guesstimate;
@@ -75,13 +79,24 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
                 $.formatOutput(_battChangeInPercent),
                 Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
             );
-            dc.drawText(
-                deviceSpecificDetailsView.X_POS_DATA,
-                deviceSpecificDetailsView.Y_POS_BATT_GUESSTIMATE,
-                Graphics.FONT_MEDIUM,
-                $.guesstimateFormat(_guesstimate),
-                Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
-            );
+            if (_guesstimate instanceof String) {
+                dc.drawText(
+                    deviceSpecificDetailsView.X_POS_DATA,
+                    deviceSpecificDetailsView.Y_POS_BATT_GUESSTIMATE,
+                    Graphics.FONT_MEDIUM,
+                    _guesstimate,
+                    Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
+                );
+            } else {
+                dc.drawText(
+                    deviceSpecificDetailsView.X_POS_DATA,
+                    deviceSpecificDetailsView.Y_POS_BATT_GUESSTIMATE,
+                    Graphics.FONT_MEDIUM,
+                    $.guesstimateFormat(_guesstimate),
+                    Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER
+                );
+            }
+
             _drawingDone = true;
         }
     }

@@ -103,25 +103,25 @@ class MyServiceDelegate extends System.ServiceDelegate {
 }
 
 (:glance)
-public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
+public function getBattChangeInPercent(stepsOfHistory as Integer) as Float or String {
     var circularBufferPosition;
     var lastBatValue;
     var startCalculationBatValue;
     var result;
 
     if (stepsOfHistory > MAX_STEPS_TO_CALC) {
-        return null;
+        return "E000";
     }
     System.println("calculating over " + stepsOfHistory);
     circularBufferPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
     System.println("   till position " + circularBufferPosition);
 
     if (circularBufferPosition == null) {
-        return null;
+        return "E001";
     }
     lastBatValue = Storage.getValue(circularBufferPosition) as Float;
     if (lastBatValue == null) {
-        return null;
+        return "E002";
     }
     circularBufferPosition = circularBufferPosition - stepsOfHistory;
     if (circularBufferPosition < 0) {
@@ -130,7 +130,7 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
     System.println("   from position " + circularBufferPosition);
     startCalculationBatValue = Storage.getValue(circularBufferPosition) as Float;
     if (startCalculationBatValue == null) {
-        return null;
+        return "E003";
     }
     return lastBatValue - startCalculationBatValue;
 }

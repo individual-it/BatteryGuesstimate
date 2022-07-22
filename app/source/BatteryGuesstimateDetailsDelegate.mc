@@ -52,10 +52,13 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
     private function setMessage() as Void {
         var minutes = _stepsOfHistory * 15;
         var batteryChange = $.getBattChangeInPercent(_stepsOfHistory);
-        if (batteryChange == null) {
+        var guesstimate;
+        if (batteryChange instanceof String) {
+            guesstimate = batteryChange;
             batteryChange = 0.0;
+        } else {
+            guesstimate = $.guesstimate(batteryChange, minutes);
         }
-        var guesstimate = $.guesstimate(batteryChange, minutes);
         _view.setMessage(minutes, batteryChange, guesstimate);
     }
 }
