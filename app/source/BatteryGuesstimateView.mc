@@ -7,8 +7,9 @@ import Toybox.Math;
 
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 class BatteryGuesstimateView extends WatchUi.View {
-    private var _drawingDone as Boolean = false;
     var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
+    private var _showLoadingIndicator as Boolean = true;
+    private var _drawingDone as Boolean = false;
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -22,6 +23,7 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
+        _showLoadingIndicator = true;
         _drawingDone = false;
     }
 
@@ -37,6 +39,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         } else {
             _stepsToShowInGraph = steps;
         }
+        _showLoadingIndicator = true;
         _drawingDone = false;
         WatchUi.requestUpdate();
     }
@@ -44,11 +47,24 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
-        if (_drawingDone == false) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        if (_showLoadingIndicator == true) {
+            _showLoadingIndicator = false;
+            dc.clear();
+            dc.drawText(
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                Graphics.FONT_LARGE,
+                "loading ...",
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            WatchUi.requestUpdate();
+            return;
+        } else if (_drawingDone == false) {
+            dc.clear();
             var deviceSpecificView = new DeviceView();
             var timeText = "24h";
             View.onUpdate(dc);
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+
             deviceSpecificView.drawButtonHint(dc);
             var graphData = getGraphData(_stepsToShowInGraph);
             var x;
