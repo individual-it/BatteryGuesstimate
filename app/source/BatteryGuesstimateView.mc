@@ -13,7 +13,13 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _drawingDone as Boolean = false;
     private var _graphData as Array = new [GRAPH_WIDTH];
     private var _dataPos as Integer = DATA_POS_START;
+    private var _circularBufferPosition as Integer = 0;
 
+    private function resetValues() as Void {
+        _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
+        _drawingDone = false;
+        _dataPos = DATA_POS_START;
+    }
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -27,8 +33,7 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
-        _drawingDone = false;
-        _dataPos = DATA_POS_START;
+        resetValues();
     }
 
     public function getStepsToShowInGraph() as Integer {
@@ -43,14 +48,23 @@ class BatteryGuesstimateView extends WatchUi.View {
         } else {
             _stepsToShowInGraph = steps;
         }
-        _drawingDone = false;
-        _dataPos = DATA_POS_START;
+        resetValues();
         WatchUi.requestUpdate();
     }
 
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
+        if (_circularBufferPosition == null) {
+            dc.drawText(
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                Graphics.FONT_MEDIUM,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            return;
+
+        }
         if (_dataPos >= 0) {
             dc.setPenWidth(20);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
@@ -63,6 +77,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             );
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
             dc.drawArc(144, 31, 31, Graphics.ARC_CLOCKWISE, 0, progress);
+
             _graphData[_dataPos] = getGraphData(_stepsToShowInGraph, _dataPos);
             _dataPos -= 1;
             WatchUi.requestUpdate();
@@ -76,10 +91,6 @@ class BatteryGuesstimateView extends WatchUi.View {
 
             deviceSpecificView.drawButtonHint(dc);
             var x;
-            if (_graphData == null) {
-                dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-                return;
-            }
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
                 x = i+deviceSpecificView.X_MARGIN_LEFT;
@@ -100,26 +111,23 @@ class BatteryGuesstimateView extends WatchUi.View {
     // placed in a seperate function to make it testable
     public function getGraphData(stepsToShowInGraph as Integer, x as Integer) as Float? {
         var batteryValue = 0;
-        var circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
-        if (circularBufferPosition == null) {
-            return null;
-        }
+
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
 
-            batteryValue = 0;
-            for (var avarageI = stepsPerPixelX; avarageI > 0; avarageI = avarageI-1) {
-                var storageValue = Storage.getValue(circularBufferPosition) as Integer;
+        batteryValue = 0;
+        for (var avarageI = stepsPerPixelX; avarageI > 0; avarageI = avarageI-1) {
+            var storageValue = Storage.getValue(_circularBufferPosition as Integer) as Integer;
 
-                if (storageValue == null) {
-                    storageValue = 0;
-                }
-                batteryValue = batteryValue + storageValue;
-                circularBufferPosition = circularBufferPosition - 1;
-                if (circularBufferPosition < 0) {
-                    circularBufferPosition = $.MAX_STEPS_TO_CALC;
-                }
+            if (storageValue == null) {
+                storageValue = 0;
             }
-            return (batteryValue / stepsPerPixelX) as Float;
+            batteryValue = batteryValue + storageValue;
+            _circularBufferPosition = _circularBufferPosition - 1;
+            if (_circularBufferPosition < 0) {
+                _circularBufferPosition = $.MAX_STEPS_TO_CALC;
+            }
+        }
+        return (batteryValue / stepsPerPixelX) as Float;
 
     }
     //! Called when this View is removed from the screen. Save the
