@@ -61,6 +61,8 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
+        var deviceSpecificView = new DeviceView();
+
         if (_circularBufferPosition == null) {
             dc.drawText(
                 dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
@@ -81,7 +83,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
-            dc.drawArc(144, 31, 31, Graphics.ARC_CLOCKWISE, 0, progress);
+            deviceSpecificView.drawProgressIndicator(dc, progress);
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph, _dataPos);
             _dataPos -= 1;
@@ -90,7 +92,6 @@ class BatteryGuesstimateView extends WatchUi.View {
             return;
         } else if (_drawingDone == false ) {
             dc.setPenWidth(1);
-            var deviceSpecificView = new DeviceView();
             var timeText = "24h";
             View.onUpdate(dc);
 
