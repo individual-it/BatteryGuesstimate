@@ -20,6 +20,12 @@ class BatteryGuesstimateView extends WatchUi.View {
         _drawingDone = false;
         _dataPos = DATA_POS_START;
     }
+
+    // only for tests
+    public function getGraphData() as Array {
+        return _graphData;
+    }
+
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -63,7 +69,6 @@ class BatteryGuesstimateView extends WatchUi.View {
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             return;
-
         }
         if (_dataPos >= 0) {
             dc.setPenWidth(20);
@@ -78,7 +83,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
             dc.drawArc(144, 31, 31, Graphics.ARC_CLOCKWISE, 0, progress);
 
-            _graphData[_dataPos] = getGraphData(_stepsToShowInGraph, _dataPos);
+            _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph, _dataPos);
             _dataPos -= 1;
             WatchUi.requestUpdate();
 
@@ -109,7 +114,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     }
 
     // placed in a seperate function to make it testable
-    public function getGraphData(stepsToShowInGraph as Integer, x as Integer) as Float? {
+    public function getBatteryData(stepsToShowInGraph as Integer, x as Integer) as Float? {
         var batteryValue = 0;
 
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
