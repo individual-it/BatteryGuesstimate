@@ -23,4 +23,8 @@ class DeviceView {
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
     }
+
+    function drawProgressIndicator(dc as Dc, progress as Float) as Void {
+        dc.drawArc(136, 27, 27, Graphics.ARC_CLOCKWISE, 0, progress);
+    }
 }

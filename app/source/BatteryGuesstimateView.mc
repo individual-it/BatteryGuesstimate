@@ -5,10 +5,27 @@ import Toybox.System;
 import Toybox.Application.Storage;
 import Toybox.Math;
 
+
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
+const DATA_POS_START = GRAPH_WIDTH-1;
 class BatteryGuesstimateView extends WatchUi.View {
-    private var _drawingDone as Boolean = false;
     var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
+    private var _drawingDone as Boolean = false;
+    private var _graphData as Array = new [GRAPH_WIDTH];
+    private var _dataPos as Integer = DATA_POS_START;
+    private var _circularBufferPosition as Integer = 0;
+
+    private function resetValues() as Void {
+        _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
+        _drawingDone = false;
+        _dataPos = DATA_POS_START;
+    }
+
+    // only for tests
+    public function getGraphData() as Array {
+        return _graphData;
+    }
+
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
@@ -22,7 +39,7 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
-        _drawingDone = false;
+        resetValues();
     }
 
     public function getStepsToShowInGraph() as Integer {
@@ -37,30 +54,54 @@ class BatteryGuesstimateView extends WatchUi.View {
         } else {
             _stepsToShowInGraph = steps;
         }
-        _drawingDone = false;
+        resetValues();
         WatchUi.requestUpdate();
     }
 
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
-        if (_drawingDone == false) {
-            var deviceSpecificView = new DeviceView();
+        var deviceSpecificView = new DeviceView();
+
+        if (_circularBufferPosition == null) {
+            dc.drawText(
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                Graphics.FONT_MEDIUM,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            return;
+        }
+        if (_dataPos >= 0) {
+            dc.setPenWidth(20);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            dc.clear();
+            dc.drawText(
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                Graphics.FONT_LARGE,
+                "loading ...",
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
+            deviceSpecificView.drawProgressIndicator(dc, progress as Float);
+
+            _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph, _dataPos);
+            _dataPos -= 1;
+            WatchUi.requestUpdate();
+
+            return;
+        } else if (_drawingDone == false ) {
+            dc.setPenWidth(1);
             var timeText = "24h";
             View.onUpdate(dc);
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+
             deviceSpecificView.drawButtonHint(dc);
-            var graphData = getGraphData(_stepsToShowInGraph);
             var x;
-            if (graphData == null) {
-                dc.drawText(dc.getWidth() / 2, (dc.getHeight() / 2) + 10, Graphics.FONT_MEDIUM, "no data", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-                return;
-            }
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
                 x = i+deviceSpecificView.X_MARGIN_LEFT;
-                graphData[i] = Math.round(graphData[i] as Float / 2);
-                dc.drawLine(x, deviceSpecificView.Y_ZERO_LINE, x, deviceSpecificView.Y_ZERO_LINE-graphData[i]  as Float);
+                var graphData = Math.round(_graphData[i] as Float / 2);
+                dc.drawLine(x, deviceSpecificView.Y_ZERO_LINE, x, deviceSpecificView.Y_ZERO_LINE-graphData  as Float);
             }
             _drawingDone = true;
 
@@ -74,34 +115,26 @@ class BatteryGuesstimateView extends WatchUi.View {
     }
 
     // placed in a seperate function to make it testable
-    public function getGraphData(stepsToShowInGraph as Integer) as Array? {
-        var dataAarray = new [GRAPH_WIDTH];
+    public function getBatteryData(stepsToShowInGraph as Integer, x as Integer) as Float? {
         var batteryValue = 0;
-        var circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
-        if (circularBufferPosition == null) {
-            return null;
-        }
+
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
 
-        for (var x = GRAPH_WIDTH-1; x >= 0; x -= 1) {
-            batteryValue = 0;
-            for (var avarageI = stepsPerPixelX; avarageI > 0; avarageI = avarageI-1) {
-                var storageValue = Storage.getValue(circularBufferPosition) as Integer;
+        batteryValue = 0;
+        for (var avarageI = stepsPerPixelX; avarageI > 0; avarageI = avarageI-1) {
+            var storageValue = Storage.getValue(_circularBufferPosition as Integer) as Integer;
 
-                if (storageValue == null) {
-                    storageValue = 0;
-                }
-                batteryValue = batteryValue + storageValue;
-                circularBufferPosition = circularBufferPosition - 1;
-                if (circularBufferPosition < 0) {
-                    circularBufferPosition = $.MAX_STEPS_TO_CALC;
-                }
+            if (storageValue == null) {
+                storageValue = 0;
             }
-            batteryValue = batteryValue / stepsPerPixelX;
-            dataAarray[x] = batteryValue;
+            batteryValue = batteryValue + storageValue;
+            _circularBufferPosition = _circularBufferPosition - 1;
+            if (_circularBufferPosition < 0) {
+                _circularBufferPosition = $.MAX_STEPS_TO_CALC;
+            }
         }
+        return (batteryValue / stepsPerPixelX) as Float;
 
-        return dataAarray;
     }
     //! Called when this View is removed from the screen. Save the
     //! state of your app here.

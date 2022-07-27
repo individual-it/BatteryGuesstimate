@@ -21,4 +21,8 @@ class DeviceView {
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
     }
+
+    function drawProgressIndicator(dc as Dc, progress as Float) as Void {
+        dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2, dc.getHeight() / 2, Graphics.ARC_CLOCKWISE, 0, progress);
+    }
 }
