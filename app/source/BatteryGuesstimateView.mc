@@ -83,7 +83,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
-            deviceSpecificView.drawProgressIndicator(dc, progress);
+            deviceSpecificView.drawProgressIndicator(dc, progress as Float);
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph, _dataPos);
             _dataPos -= 1;
