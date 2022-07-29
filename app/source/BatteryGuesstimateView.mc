@@ -14,6 +14,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _graphData as Array = new [GRAPH_WIDTH];
     private var _dataPos as Integer = DATA_POS_START;
     private var _circularBufferPosition as Integer = 0;
+    private var _deviceSpecificView as DeviceView = new DeviceView();
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
@@ -61,8 +62,6 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
-        var deviceSpecificView = new DeviceView();
-
         if (_circularBufferPosition == null) {
             dc.drawText(
                 dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
@@ -83,7 +82,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
-            deviceSpecificView.drawProgressIndicator(dc, progress as Float);
+            _deviceSpecificView.drawProgressIndicator(dc, progress as Float);
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
             _dataPos -= 1;
@@ -95,13 +94,13 @@ class BatteryGuesstimateView extends WatchUi.View {
             var timeText = "24h";
             View.onUpdate(dc);
 
-            deviceSpecificView.drawButtonHint(dc);
+            _deviceSpecificView.drawButtonHint(dc);
             var x;
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
-                x = i+deviceSpecificView.X_MARGIN_LEFT;
+                x = i+_deviceSpecificView.X_MARGIN_LEFT;
                 var graphData = Math.round(_graphData[i] as Float / 2);
-                dc.drawLine(x, deviceSpecificView.Y_ZERO_LINE, x, deviceSpecificView.Y_ZERO_LINE-graphData  as Float);
+                dc.drawLine(x, _deviceSpecificView.Y_ZERO_LINE, x, _deviceSpecificView.Y_ZERO_LINE-graphData  as Float);
             }
             _drawingDone = true;
 
@@ -109,7 +108,7 @@ class BatteryGuesstimateView extends WatchUi.View {
                 timeText = (_stepsToShowInGraph / 96) + "days";
             }
 
-            deviceSpecificView.drawTimeText(dc, timeText);
+            _deviceSpecificView.drawTimeText(dc, timeText);
         }
 
     }
