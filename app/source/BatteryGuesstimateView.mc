@@ -85,7 +85,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
             deviceSpecificView.drawProgressIndicator(dc, progress as Float);
 
-            _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph, _dataPos);
+            _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
             _dataPos -= 1;
             WatchUi.requestUpdate();
 
@@ -115,7 +115,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     }
 
     // placed in a seperate function to make it testable
-    public function getBatteryData(stepsToShowInGraph as Integer, x as Integer) as Float? {
+    public function getBatteryData(stepsToShowInGraph as Integer) as Float? {
         var batteryValue = 0;
 
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
