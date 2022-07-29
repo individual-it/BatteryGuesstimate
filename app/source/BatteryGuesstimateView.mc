@@ -15,6 +15,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _dataPos as Integer = DATA_POS_START;
     private var _circularBufferPosition as Integer = 0;
     private var _deviceSpecificView as DeviceView = new DeviceView();
+    private var _storageBuffer as Array = new [$.SIZE_CIRCULAR_BUFFER];
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
@@ -116,12 +117,17 @@ class BatteryGuesstimateView extends WatchUi.View {
     // placed in a seperate function to make it testable
     public function getBatteryData(stepsToShowInGraph as Integer) as Float? {
         var batteryValue = 0;
-
+        var storageValue;
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
 
         batteryValue = 0;
         for (var avarageI = stepsPerPixelX; avarageI > 0; avarageI = avarageI-1) {
-            var storageValue = Storage.getValue(_circularBufferPosition as Integer) as Integer;
+            if (_storageBuffer[_circularBufferPosition as Integer] == null) {
+                storageValue = Storage.getValue(_circularBufferPosition as Integer) as Integer;
+                _storageBuffer[_circularBufferPosition as Integer] = storageValue;
+            } else {
+                storageValue = _storageBuffer[_circularBufferPosition as Integer];
+            }
 
             if (storageValue == null) {
                 storageValue = 0;
