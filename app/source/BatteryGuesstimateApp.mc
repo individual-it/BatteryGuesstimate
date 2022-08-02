@@ -52,8 +52,8 @@ class BatteryGuesstimateApp extends Application.AppBase {
         var view;
         var delegate;
         if (System.getDeviceSettings().isGlanceModeEnabled == true) {
-            view = new $.BatteryGuesstimateView();
-            delegate = new $.BatteryGuesstimateDelegate(view);
+            view = new $.BatteryGuesstimateDetailsView();
+            delegate = new $.BatteryGuesstimateDetailsDelegate(view);
         } else {
             view = new $.BatteryGuesstimateCarusellView();
             delegate =  new $.BatteryGuesstimateCarusellDelegate();

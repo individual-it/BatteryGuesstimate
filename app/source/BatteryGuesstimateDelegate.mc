@@ -47,12 +47,4 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
         _view.setStepsToShowInGraph(stepsToShowInGraph);
         return true;
     }
-
-    //! @return true if handled, false otherwise
-    public function onSelect() as Boolean {
-        var view = new BatteryGuesstimateDetailsView();
-        WatchUi.pushView(view, new BatteryGuesstimateDetailsDelegate(view), WatchUi.SLIDE_UP);
-
-        return true;
-    }
 }

@@ -5,13 +5,13 @@
         <label x="120" y="95" text="50%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="120" y="125" text="0%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <drawable id="ChartBackground"/>
-        <drawable id="Magnifier"/>
     </layout>
     <layout id="DetailsLayout">
         <label x="80" y="68" text="BATTERY" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="80" y="87" text="CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="80" y="125" text="TIME " color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="80" y="145" text="LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <drawable id="Graph"/>
     </layout>
 
     <drawable-list id="ChartBackground" width="100" height="50" x="20" y="75" background="Gfx.COLOR_BLACK">
@@ -19,8 +19,8 @@
         <shape type="rectangle" x="0" y="25" width="100" height="1"  color="Gfx.COLOR_WHITE" />
         <shape type="rectangle" x="0" y="50" width="100" height="1"  color="Gfx.COLOR_WHITE" />
     </drawable-list>
-    <drawable-list id="Magnifier" width="52" height="52" x="108" y="0" background="Gfx.COLOR_TRANSPARENT">
-        <shape type="circle" x="26" y="26" radius="26" border_width="0" color="Gfx.COLOR_WHITE" />
-        <bitmap id="magnifier" x="0" y="0" filename="./images/magnifier.png" />   
+    <drawable-list id="Graph" width="52" height="52" x="111" y="1" background="Gfx.COLOR_TRANSPARENT">
+        <shape type="circle" x="26" y="26" radius="28" border_width="0" color="Gfx.COLOR_WHITE" />
+        <bitmap id="graph" x="0" y="0" filename="./images/graph.png" />
     </drawable-list>
 </resources>
