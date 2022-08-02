@@ -49,6 +49,13 @@ class BatteryGuesstimateDetailsDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
+
+    public function onSelect() as Boolean {
+        var view = new BatteryGuesstimateView();
+        WatchUi.pushView(view, new BatteryGuesstimateDelegate(view), WatchUi.SLIDE_UP);
+
+        return true;
+    }
     private function setMessage() as Void {
         var minutes = _stepsOfHistory * 15;
         var batteryChange = $.getBattChangeInPercent(_stepsOfHistory);

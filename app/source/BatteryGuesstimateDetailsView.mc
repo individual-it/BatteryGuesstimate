@@ -45,7 +45,8 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
     public function onUpdate(dc as Dc) as Void { 
         if (_drawingDone == false) {
             var deviceSpecificView = new DeviceView();
-
+            dc.clear();
+            dc.setPenWidth(1);
             View.onUpdate(dc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
