@@ -16,11 +16,19 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _circularBufferPosition as Integer = 0;
     private var _deviceSpecificView as DeviceView = new DeviceView();
     private var _storageBuffer as Array = new [$.SIZE_CIRCULAR_BUFFER];
+    private var _minBattValue as Float = 100.0;
+    private var _maxBattValue as Float = 0.0;
+    private var _cumulatedDischarge as Float = 0.0;
+    private var _cumulatedCharge as Float = 0.0;
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
         _drawingDone = false;
         _dataPos = DATA_POS_START;
+        _minBattValue = 100.0;
+        _maxBattValue = 0.0;
+        _cumulatedDischarge = 0.0;
+        _cumulatedCharge = 0.0;
     }
 
     // only for tests
@@ -86,6 +94,22 @@ class BatteryGuesstimateView extends WatchUi.View {
             _deviceSpecificView.drawProgressIndicator(dc, progress as Float);
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
+            if (_graphData[_dataPos] < _minBattValue) {
+                _minBattValue = _graphData[_dataPos];
+            }
+            if (_graphData[_dataPos] > _maxBattValue) {
+                _maxBattValue = _graphData[_dataPos];
+            }
+            if (_dataPos < DATA_POS_START) {
+                System.println("graph data " + _graphData[_dataPos] + " => " + _graphData[_dataPos+1]);
+                if (_graphData[_dataPos] > _graphData[_dataPos+1]) {
+                    _cumulatedDischarge = _cumulatedDischarge + (_graphData[_dataPos] - _graphData[_dataPos+1]);
+                }
+                if (_graphData[_dataPos] < _graphData[_dataPos+1]) {
+                    _cumulatedCharge = _cumulatedCharge + (_graphData[_dataPos+1] - _graphData[_dataPos]);
+                }
+            }
+            
             _dataPos -= 1;
             WatchUi.requestUpdate();
 
@@ -110,6 +134,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
 
             _deviceSpecificView.drawTimeText(dc, timeText);
+            _deviceSpecificView.drawStats(dc, _minBattValue, _maxBattValue, _cumulatedCharge, _cumulatedDischarge);
         }
 
     }
