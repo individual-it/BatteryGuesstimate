@@ -29,34 +29,34 @@ class DeviceView {
     }
 
     function drawStats(dc as Dc, minBattValue as Float, maxBattValue as Float, cumulatedCharge as Float, cumulatedDischarge as Float) as Void {
-        dc.drawLine(40, 5, 40, 30);
+        dc.drawLine(40, 5, 40, 27);
         dc.drawLine(37, 8, 40, 2);
         dc.drawLine(43, 8, 40, 2);
-        dc.drawLine(37, 24, 40, 34);
-        dc.drawLine(43, 24, 40, 34);
+        dc.drawLine(37, 24, 40, 30);
+        dc.drawLine(43, 24, 40, 30);
         dc.drawText(
-            45, -5,
+            102, -5,
             Graphics.FONT_XTINY,
             maxBattValue.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_LEFT
+            Graphics.TEXT_JUSTIFY_RIGHT
         );
         dc.drawText(
-            45, 15,
+            102, 12,
             Graphics.FONT_XTINY,
             minBattValue.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_LEFT
+            Graphics.TEXT_JUSTIFY_RIGHT
         );
         dc.drawText(
-            10, 35,
+            102, 35,
             Graphics.FONT_XTINY,
-            cumulatedCharge.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_LEFT
+            "+" + cumulatedCharge.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
         );
         dc.drawText(
-            10, 55,
+            102, 52,
             Graphics.FONT_XTINY,
-            cumulatedDischarge.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_LEFT
+            "-" + cumulatedDischarge.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
         );
     }
 }
