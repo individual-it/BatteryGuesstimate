@@ -95,18 +95,17 @@ class BatteryGuesstimateView extends WatchUi.View {
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
             if (_graphData[_dataPos] < _minBattValue) {
-                _minBattValue = _graphData[_dataPos];
+                _minBattValue = _graphData[_dataPos] as Float;
             }
             if (_graphData[_dataPos] > _maxBattValue) {
-                _maxBattValue = _graphData[_dataPos];
+                _maxBattValue = _graphData[_dataPos] as Float;
             }
             if (_dataPos < DATA_POS_START) {
-                System.println("graph data " + _graphData[_dataPos] + " => " + _graphData[_dataPos+1]);
                 if (_graphData[_dataPos] > _graphData[_dataPos+1]) {
-                    _cumulatedDischarge = _cumulatedDischarge + (_graphData[_dataPos] - _graphData[_dataPos+1]);
+                    _cumulatedDischarge = _cumulatedDischarge + (_graphData[_dataPos] - _graphData[_dataPos+1])  as Float;
                 }
                 if (_graphData[_dataPos] < _graphData[_dataPos+1]) {
-                    _cumulatedCharge = _cumulatedCharge + (_graphData[_dataPos+1] - _graphData[_dataPos]);
+                    _cumulatedCharge = _cumulatedCharge + (_graphData[_dataPos+1] - _graphData[_dataPos])  as Float;
                 }
             }
             _dataPos -= 1;
