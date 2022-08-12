@@ -6,7 +6,7 @@ class DeviceView {
     var X_MARGIN_LEFT as Integer = 80;
     var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_TINY;
     var STATS_X_ALLINGMENT as Integer  = 170;
-    var STATS_ICON_X_ALLINGMENT as Integer  = 80;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 70;
     var STATS_Y_START as Integer  = 8;
     var STATS_LINE_HIGHT as Integer  = 22;
     var STATS_GROUP_PADDING as Integer  = 3;
