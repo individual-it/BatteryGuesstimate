@@ -36,6 +36,16 @@ class BatteryGuesstimateView extends WatchUi.View {
         return _graphData;
     }
 
+    // only for tests
+    public function getMinBattValue() as Float {
+        return _minBattValue;
+    }
+
+    // only for tests
+    public function getMaxBattValue() as Float {
+        return _maxBattValue;
+    }
+
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
