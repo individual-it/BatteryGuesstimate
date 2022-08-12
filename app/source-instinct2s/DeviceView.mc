@@ -5,6 +5,14 @@ class DeviceView {
     var Y_ZERO_LINE as Integer = 125;
     var X_MARGIN_LEFT as Integer = 20;
 
+    var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_XTINY;
+    var STATS_X_ALLINGMENT as Integer  = 95;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 35;
+    var STATS_Y_START as Integer  = -3;
+    var STATS_LINE_HIGHT as Integer  = 13;
+    var STATS_GROUP_PADDING as Integer  = 1;
+    var STATS_MIN_MAX_ARROW_TOP as Integer = 5;
+
     function drawButtonHint(dc as Dc) as Void {
         dc.drawText(3, 70, Graphics.FONT_SMALL, "+", Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(3, 105, Graphics.FONT_SMALL, "-", Graphics.TEXT_JUSTIFY_LEFT);

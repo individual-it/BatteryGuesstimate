@@ -1,6 +1,5 @@
 <resources>
     <layout id="ChartLayout">
-        <label x="35%" y="10%" text="BATTERY\nCHART" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SMALL" />
         <label x="120" y="70" text="100%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="120" y="95" text="50%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
         <label x="120" y="125" text="0%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />

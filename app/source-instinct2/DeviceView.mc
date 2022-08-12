@@ -5,6 +5,14 @@ class DeviceView {
     var Y_ZERO_LINE as Integer = 140;
     var X_MARGIN_LEFT as Integer = 20;
 
+    var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_XTINY;
+    var STATS_X_ALLINGMENT as Integer  = 98;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 30;
+    var STATS_Y_START as Integer  = -2;
+    var STATS_LINE_HIGHT as Integer  = 16;
+    var STATS_GROUP_PADDING as Integer  = 2;
+    var STATS_MIN_MAX_ARROW_TOP as Integer = 7;
+
     function drawButtonHint(dc as Dc) as Void {
         dc.drawText(3, 80, Graphics.FONT_SMALL, "+", Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(3, 118, Graphics.FONT_SMALL, "-", Graphics.TEXT_JUSTIFY_LEFT);
@@ -26,37 +34,5 @@ class DeviceView {
 
     function drawProgressIndicator(dc as Dc, progress as Float) as Void {
         dc.drawArc(144, 31, 31, Graphics.ARC_CLOCKWISE, 0, progress);
-    }
-
-    function drawStats(dc as Dc, minBattValue as Float, maxBattValue as Float, cumulatedCharge as Float, cumulatedDischarge as Float) as Void {
-        dc.drawLine(40, 5, 40, 27);
-        dc.drawLine(37, 8, 40, 2);
-        dc.drawLine(43, 8, 40, 2);
-        dc.drawLine(37, 24, 40, 30);
-        dc.drawLine(43, 24, 40, 30);
-        dc.drawText(
-            102, -5,
-            Graphics.FONT_XTINY,
-            maxBattValue.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            102, 12,
-            Graphics.FONT_XTINY,
-            minBattValue.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            102, 35,
-            Graphics.FONT_XTINY,
-            "+" + cumulatedCharge.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            102, 52,
-            Graphics.FONT_XTINY,
-            "-" + cumulatedDischarge.format("%0.2f") + "%",
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
     }
 }

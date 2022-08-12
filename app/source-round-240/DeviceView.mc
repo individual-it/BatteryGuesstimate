@@ -4,6 +4,13 @@ import Toybox.Graphics;
 class DeviceView {
     var Y_ZERO_LINE as Integer = 190;
     var X_MARGIN_LEFT as Integer = 70;
+    var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_TINY;
+    var STATS_X_ALLINGMENT as Integer  = 170;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 80;
+    var STATS_Y_START as Integer  = 8;
+    var STATS_LINE_HIGHT as Integer  = 22;
+    var STATS_GROUP_PADDING as Integer  = 3;
+    var STATS_MIN_MAX_ARROW_TOP as Integer = 20;
 
     function drawButtonHint(dc as Dc) as Void {
         dc.drawText(3, 108, Graphics.FONT_SMALL, "+", Graphics.TEXT_JUSTIFY_LEFT);

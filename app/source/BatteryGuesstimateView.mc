@@ -109,7 +109,6 @@ class BatteryGuesstimateView extends WatchUi.View {
                     _cumulatedCharge = _cumulatedCharge + (_graphData[_dataPos+1] - _graphData[_dataPos]);
                 }
             }
-            
             _dataPos -= 1;
             WatchUi.requestUpdate();
 
@@ -134,9 +133,104 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
 
             _deviceSpecificView.drawTimeText(dc, timeText);
-            _deviceSpecificView.drawStats(dc, _minBattValue, _maxBattValue, _cumulatedCharge, _cumulatedDischarge);
-        }
+            var guesstimate = $.guesstimate(_cumulatedDischarge*-1, _stepsToShowInGraph * 15);
+            var y = _deviceSpecificView.STATS_Y_START;
 
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _maxBattValue.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _minBattValue.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                 "+",
+                 Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _cumulatedCharge.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                "-",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _cumulatedDischarge.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                "->",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                $.guesstimateFormat(guesstimate),
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            // draw min/max symbol
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+3,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+3
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+            );
+        }
     }
 
     // placed in a seperate function to make it testable
