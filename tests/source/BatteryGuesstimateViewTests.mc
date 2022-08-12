@@ -31,6 +31,34 @@ function onUpdateTestOneDay(logger as Logger) as Boolean {
     }
     assertEqualFloat(logger, view.getMinBattValue(), 5.123);
     assertEqualFloat(logger, view.getMaxBattValue(), 100.123);
+    assertEqualFloat(logger, view.getCumulatedDischarge(), 0.0);
+    assertEqualFloat(logger, view.getCumulatedCharge(), 95.0);
+    return true;
+}
+
+(:test)
+function onUpdateTestOneDayDischarge(logger as Logger) as Boolean {
+    var view = new BatteryGuesstimateView();
+    Storage.clearValues();
+    Storage.setValue("cBlP", 100);
+    for (var i = 0; i<=100; i++) {
+        Storage.setValue(i, 100-i+0.23);
+    }
+    view.onShow();
+    // simulate what WatchUi.requestUpdate() will hopefully do
+    for (var i = 0; i<96; i++) {
+        view.onUpdate(getDc());
+    }
+    var graphData = view.getGraphData();
+    Test.assertEqualMessage(graphData.size(), 96, "getGraphData should return an array of 96 values");
+    for (var i = 0; i<96; i++) {
+        var expected = 95.23-i as Float;
+        assertEqualFloat(logger, graphData[i] as Float, expected);
+    }
+    assertEqualFloat(logger, view.getMinBattValue(), 0.23);
+    assertEqualFloat(logger, view.getMaxBattValue(), 95.23);
+    assertEqualFloat(logger, view.getCumulatedDischarge(), 95.0);
+    assertEqualFloat(logger, view.getCumulatedCharge(), 0.0);
     return true;
 }
 

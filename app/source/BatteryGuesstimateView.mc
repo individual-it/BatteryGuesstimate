@@ -46,6 +46,16 @@ class BatteryGuesstimateView extends WatchUi.View {
         return _maxBattValue;
     }
 
+    // only for tests
+    public function getCumulatedDischarge() as Float {
+        return _cumulatedDischarge;
+    }
+
+    // only for tests
+    public function getCumulatedCharge() as Float {
+        return _cumulatedCharge;
+    }
+
     //! Constructor
     public function initialize() {
         WatchUi.View.initialize();
