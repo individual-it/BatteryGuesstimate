@@ -16,16 +16,44 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _circularBufferPosition as Integer = 0;
     private var _deviceSpecificView as DeviceView = new DeviceView();
     private var _storageBuffer as Array = new [$.SIZE_CIRCULAR_BUFFER];
+    private var _minBattValue as Float = 100.0;
+    private var _maxBattValue as Float = 0.0;
+    private var _cumulatedDischarge as Float = 0.0;
+    private var _cumulatedCharge as Float = 0.0;
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
         _drawingDone = false;
         _dataPos = DATA_POS_START;
+        _minBattValue = 100.0;
+        _maxBattValue = 0.0;
+        _cumulatedDischarge = 0.0;
+        _cumulatedCharge = 0.0;
     }
 
     // only for tests
     public function getGraphData() as Array {
         return _graphData;
+    }
+
+    // only for tests
+    public function getMinBattValue() as Float {
+        return _minBattValue;
+    }
+
+    // only for tests
+    public function getMaxBattValue() as Float {
+        return _maxBattValue;
+    }
+
+    // only for tests
+    public function getCumulatedDischarge() as Float {
+        return _cumulatedDischarge;
+    }
+
+    // only for tests
+    public function getCumulatedCharge() as Float {
+        return _cumulatedCharge;
     }
 
     //! Constructor
@@ -86,6 +114,20 @@ class BatteryGuesstimateView extends WatchUi.View {
             _deviceSpecificView.drawProgressIndicator(dc, progress as Float);
 
             _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
+            if (_graphData[_dataPos] < _minBattValue) {
+                _minBattValue = _graphData[_dataPos] as Float;
+            }
+            if (_graphData[_dataPos] > _maxBattValue) {
+                _maxBattValue = _graphData[_dataPos] as Float;
+            }
+            if (_dataPos < DATA_POS_START) {
+                if (_graphData[_dataPos] > _graphData[_dataPos+1]) {
+                    _cumulatedDischarge = _cumulatedDischarge + (_graphData[_dataPos] - _graphData[_dataPos+1])  as Float;
+                }
+                if (_graphData[_dataPos] < _graphData[_dataPos+1]) {
+                    _cumulatedCharge = _cumulatedCharge + (_graphData[_dataPos+1] - _graphData[_dataPos])  as Float;
+                }
+            }
             _dataPos -= 1;
             WatchUi.requestUpdate();
 
@@ -110,8 +152,104 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
 
             _deviceSpecificView.drawTimeText(dc, timeText);
-        }
+            var guesstimate = $.guesstimate(_cumulatedDischarge*-1, _stepsToShowInGraph * 15);
+            var y = _deviceSpecificView.STATS_Y_START;
 
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _maxBattValue.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _minBattValue.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                 "+",
+                 Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _cumulatedCharge.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                "-",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                _cumulatedDischarge.format("%0.2f") + "%",
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+            dc.drawText(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                "->",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            dc.drawText(
+                _deviceSpecificView.STATS_X_ALLINGMENT,
+                y,
+                _deviceSpecificView.STATS_FONT,
+                $.guesstimateFormat(guesstimate),
+                Graphics.TEXT_JUSTIFY_RIGHT
+            );
+
+            // draw min/max symbol
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+3,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+3
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+            );
+            dc.drawLine(
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+            );
+        }
     }
 
     // placed in a seperate function to make it testable
