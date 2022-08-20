@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Graphics as Gfx;
 using Toybox.System;
+using Toybox.Application.Properties;
 import Toybox.Lang;
 
 (:glance)
@@ -17,17 +18,35 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
     dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
     var deviceSpecificView = new DeviceGlanceView(dc);
     deviceSpecificView.drawHeading(_heading);
-    var batteryChange = $.getBattChangeInPercent(1);
-    if (batteryChange == null) {
-      batteryChange = 0.0;
+    var timeFrameStepsToShow  = 0;
+    var batteryChange;
+    var guesstimate;
+    var minutes = 0;
+    var timeString;
+    for (var i=0; i<2; i++) {
+      timeFrameStepsToShow = Properties.getValue("glance-timeframe-" + i) as Integer;
+      batteryChange = $.getBattChangeInPercent(timeFrameStepsToShow);
+      if (batteryChange == null) {
+        batteryChange = 0.0;
+      }
+      minutes = timeFrameStepsToShow * 15;
+      
+      if (minutes > 1440) {
+          timeString = minutes / 1440 + "d";
+      }
+      else if (minutes > 120) {
+          timeString = minutes / 60 + "h";
+      } else {
+          timeString = minutes + "min";
+      }
+      guesstimate = $.guesstimate(batteryChange, minutes);
+      dc.drawText(
+        0,
+        (i+1)*20,
+        Graphics.FONT_XTINY,
+        timeString + ":" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate),
+        Graphics.TEXT_JUSTIFY_LEFT
+      );
     }
-    var guesstimate = $.guesstimate(batteryChange, 15);
-    dc.drawText(0, 20, Graphics.FONT_XTINY, "15m:" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
-    batteryChange = $.getBattChangeInPercent(2);
-    if (batteryChange == null) {
-      batteryChange = 0.0;
-    }
-    guesstimate = $.guesstimate(batteryChange, 30);
-    dc.drawText(0, 40, Graphics.FONT_XTINY, "30m:" + $.formatOutput(batteryChange)+ " -> " + $.guesstimateFormat(guesstimate), Graphics.TEXT_JUSTIFY_LEFT);
   }
 }
