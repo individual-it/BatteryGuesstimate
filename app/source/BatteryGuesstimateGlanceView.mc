@@ -30,15 +30,7 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
         batteryChange = 0.0;
       }
       minutes = timeFrameStepsToShow * 15;
-      
-      if (minutes > 1440) {
-          timeString = minutes / 1440 + "d";
-      }
-      else if (minutes > 120) {
-          timeString = minutes / 60 + "h";
-      } else {
-          timeString = minutes + "min";
-      }
+      timeString = $.timePeriodFormat(minutes, false);
       guesstimate = $.guesstimate(batteryChange, minutes);
       dc.drawText(
         0,

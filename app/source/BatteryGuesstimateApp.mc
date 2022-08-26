@@ -167,6 +167,30 @@ public function guesstimateFormat(minutes as Integer) as String{
     }
 }
 
+(:glance)
+public function timePeriodFormat(minutes as Integer, longFormat as Boolean) as String {
+    var timeString = "";
+    if (minutes > 1440) {
+        timeString = minutes / 1440;
+        if (longFormat) {
+            timeString += "days";
+        } else {
+            timeString += "d";
+        }
+    } else if (minutes > 120) {
+        timeString = minutes / 60;
+        if (longFormat) {
+            timeString += "hours";
+        } else {
+            timeString += "h";
+        }
+    } else {
+        timeString = minutes + "min";
+    }
+
+    return timeString;
+}
+
 (:background :glance)
 public function databaseMigration() as Boolean {
     var lastPosition = Storage.getValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V1);
