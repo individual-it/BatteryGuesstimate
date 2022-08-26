@@ -24,3 +24,5 @@ fenix7x.sourcePath = $(fenix7x.sourcePath);source-round-260_280
 fenix7x.resourcePath = $(fenix7x.resourcePath);resources-round-260_280
 fr955.sourcePath = $(fr955.sourcePath);source-round-260_280
 fr955.resourcePath = $(fr955.resourcePath);resources-round-260_280
+enduro.sourcePath = $(enduro.sourcePath);source-round-260_280
+enduro.resourcePath = $(enduro.resourcePath);resources-round-260_280
