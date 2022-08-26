@@ -1,0 +1,79 @@
+<resources>
+    <properties>
+        <property id="glance-timeframe-0" type="number">1</property>
+        <property id="glance-timeframe-1" type="number">2</property>
+    </properties>
+    <settings>
+        <setting propertyKey="@Properties.glance-timeframe-0" title="First time-frame in glance-view">
+            <settingConfig type="list">
+                <listEntry value="1">15 min</listEntry>
+                <listEntry value="2">30 min</listEntry>
+                <listEntry value="3">45 min</listEntry>
+                <listEntry value="4">60 min</listEntry>
+                <listEntry value="5">75 min</listEntry>
+                <listEntry value="6">90 min</listEntry>
+                <listEntry value="7">105 min</listEntry>
+                <listEntry value="8">120 min</listEntry>
+                <listEntry value="12">3 hours</listEntry>
+                <listEntry value="16">4 hours</listEntry>
+                <listEntry value="20">5 hours</listEntry>
+                <listEntry value="24">6 hours</listEntry>
+                <listEntry value="36">9 hours</listEntry>
+                <listEntry value="48">12 hours</listEntry>
+                <listEntry value="60">15 hours</listEntry>
+                <listEntry value="72">18 hours</listEntry>
+                <listEntry value="84">21 hours</listEntry>
+                <listEntry value="96">24 hours</listEntry>
+                <listEntry value="192">2 days</listEntry>
+                <listEntry value="288">3 days</listEntry>
+                <listEntry value="384">4 days</listEntry>
+                <listEntry value="480">5 days</listEntry>
+                <listEntry value="576">6 days</listEntry>
+                <listEntry value="672">7 days</listEntry>
+                <listEntry value="768">8 days</listEntry>
+                <listEntry value="864">9 days</listEntry>
+                <listEntry value="960">10 days</listEntry>
+                <listEntry value="1056">11 days</listEntry>
+                <listEntry value="1152">12 days</listEntry>
+                <listEntry value="1248">13 days</listEntry>
+                <listEntry value="1344">14 days</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.glance-timeframe-1" title="Second time-frame in glance-view">
+            <settingConfig type="list">
+                <listEntry value="1">15 min</listEntry>
+                <listEntry value="2">30 min</listEntry>
+                <listEntry value="3">45 min</listEntry>
+                <listEntry value="4">60 min</listEntry>
+                <listEntry value="5">75 min</listEntry>
+                <listEntry value="6">90 min</listEntry>
+                <listEntry value="7">105 min</listEntry>
+                <listEntry value="8">120 min</listEntry>
+                <listEntry value="12">3 hours</listEntry>
+                <listEntry value="16">4 hours</listEntry>
+                <listEntry value="20">5 hours</listEntry>
+                <listEntry value="24">6 hours</listEntry>
+                <listEntry value="36">9 hours</listEntry>
+                <listEntry value="48">12 hours</listEntry>
+                <listEntry value="60">15 hours</listEntry>
+                <listEntry value="72">18 hours</listEntry>
+                <listEntry value="84">21 hours</listEntry>
+                <listEntry value="96">24 hours</listEntry>
+                <listEntry value="192">2 days</listEntry>
+                <listEntry value="288">3 days</listEntry>
+                <listEntry value="384">4 days</listEntry>
+                <listEntry value="480">5 days</listEntry>
+                <listEntry value="576">6 days</listEntry>
+                <listEntry value="672">7 days</listEntry>
+                <listEntry value="768">8 days</listEntry>
+                <listEntry value="864">9 days</listEntry>
+                <listEntry value="960">10 days</listEntry>
+                <listEntry value="1056">11 days</listEntry>
+                <listEntry value="1152">12 days</listEntry>
+                <listEntry value="1248">13 days</listEntry>
+                <listEntry value="1344">14 days</listEntry>
+            </settingConfig>
+        </setting>        
+    </settings>
+</resources>
+
