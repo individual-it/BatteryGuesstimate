@@ -38,6 +38,11 @@ The battery status is collected every 15min in the background and this date is u
 - in the details view press the GPS button to view the battery graph
 - in the graph view use the UP/DOWN buttons to cycle through the different time periods
 
+### Settings
+
+Use the Connect IQ app to configure the widget.
+1. set the time-frames to be displayed in the glance view
+
 ## Different predictions of how much longer the battery will last
 
 ### 1. Glance and Details View
