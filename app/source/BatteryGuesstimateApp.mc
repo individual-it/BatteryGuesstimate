@@ -6,6 +6,8 @@ import Toybox.Background;
 import Toybox.System;
 import Toybox.Time;
 import Toybox.Math;
+import Toybox.Communications;
+using Toybox.Application.Properties;
 
 (:glance)
 const MAX_STEPS_TO_CALC = 24*4*14; // 14days
@@ -96,6 +98,15 @@ class MyServiceDelegate extends System.ServiceDelegate {
         Storage.setValue(circularBufferPosition, systemStats.battery);
         System.println("circular buffer " + circularBufferPosition + " => " + systemStats.battery);
         Storage.setValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2, circularBufferPosition);
+
+        var chargeNotification = Properties.getValue("charge-notification") as Integer;
+        if (systemStats.charging == true && chargeNotification > 0 && systemStats.battery >= chargeNotification) {
+            Communications.openWebPage(
+                    "http://battery-level-reached.garmin",
+                {},
+                {}
+            );
+        }
         Background.exit(true);
     }
     
