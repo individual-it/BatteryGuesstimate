@@ -1,1 +1,3 @@
-../../app/resources/strings.xml
+<resources>
+    <string id="AppName">BetaBattGuesstimate</string>
+</resources>
