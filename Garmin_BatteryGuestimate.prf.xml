@@ -1,0 +1,355 @@
+<TaskerData sr="" dvi="1" tv="6.0.10">
+	<Profile sr="prof26" ve="2">
+		<cdate>1665130854215</cdate>
+		<edate>1665133715259</edate>
+		<flags>8</flags>
+		<id>26</id>
+		<mid0>21</mid0>
+		<nme>Garmin BatteryGuestimate</nme>
+		<Event sr="con0" ve="2">
+			<code>1520257414</code>
+			<pri>0</pri>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<AllFields>false</AllFields>
+					<AllFields-type>java.lang.Boolean</AllFields-type>
+					<App>Connect</App>
+					<App-type>java.lang.String</App-type>
+					<BigImageNames>&lt;null&gt;</BigImageNames>
+					<BigImageNames-type>java.lang.String</BigImageNames-type>
+					<BigTextNames>&lt;null&gt;</BigTextNames>
+					<BigTextNames-type>java.lang.String</BigTextNames-type>
+					<CancelReason>&lt;StringArray sr=""/&gt;</CancelReason>
+					<CancelReason-type>[Ljava.lang.String;</CancelReason-type>
+					<CaseinsensitiveApp>false</CaseinsensitiveApp>
+					<CaseinsensitiveApp-type>java.lang.Boolean</CaseinsensitiveApp-type>
+					<CaseinsensitiveCategoryName>false</CaseinsensitiveCategoryName>
+					<CaseinsensitiveCategoryName-type>java.lang.Boolean</CaseinsensitiveCategoryName-type>
+					<CaseinsensitivePackage>false</CaseinsensitivePackage>
+					<CaseinsensitivePackage-type>java.lang.Boolean</CaseinsensitivePackage-type>
+					<CaseinsensitiveText>false</CaseinsensitiveText>
+					<CaseinsensitiveText-type>java.lang.Boolean</CaseinsensitiveText-type>
+					<CaseinsensitiveTitle>false</CaseinsensitiveTitle>
+					<CaseinsensitiveTitle-type>java.lang.Boolean</CaseinsensitiveTitle-type>
+					<CategoryImportance>&lt;StringArray sr=""/&gt;</CategoryImportance>
+					<CategoryImportance-type>[Ljava.lang.String;</CategoryImportance-type>
+					<CategoryName>&lt;null&gt;</CategoryName>
+					<CategoryName-type>java.lang.String</CategoryName-type>
+					<ExactApp>false</ExactApp>
+					<ExactApp-type>java.lang.Boolean</ExactApp-type>
+					<ExactCategoryName>false</ExactCategoryName>
+					<ExactCategoryName-type>java.lang.Boolean</ExactCategoryName-type>
+					<ExactPackage>false</ExactPackage>
+					<ExactPackage-type>java.lang.Boolean</ExactPackage-type>
+					<ExactText>false</ExactText>
+					<ExactText-type>java.lang.Boolean</ExactText-type>
+					<ExactTitle>false</ExactTitle>
+					<ExactTitle-type>java.lang.Boolean</ExactTitle-type>
+					<HasMediaSession>false</HasMediaSession>
+					<HasMediaSession-type>java.lang.Boolean</HasMediaSession-type>
+					<HasReplyAction>false</HasReplyAction>
+					<HasReplyAction-type>java.lang.Boolean</HasReplyAction-type>
+					<Id>&lt;null&gt;</Id>
+					<Id-type>java.lang.String</Id-type>
+					<IgnoreGroupSummary>false</IgnoreGroupSummary>
+					<IgnoreGroupSummary-type>java.lang.Boolean</IgnoreGroupSummary-type>
+					<ImageNames>&lt;null&gt;</ImageNames>
+					<ImageNames-type>java.lang.String</ImageNames-type>
+					<InterceptApps>&lt;StringArray sr=""/&gt;</InterceptApps>
+					<InterceptApps-type>[Ljava.lang.String;</InterceptApps-type>
+					<InterceptPersistent>&lt;null&gt;</InterceptPersistent>
+					<InterceptPersistent-type>java.lang.String</InterceptPersistent-type>
+					<InvertApp>false</InvertApp>
+					<InvertApp-type>java.lang.Boolean</InvertApp-type>
+					<InvertCategoryName>false</InvertCategoryName>
+					<InvertCategoryName-type>java.lang.Boolean</InvertCategoryName-type>
+					<InvertPackage>false</InvertPackage>
+					<InvertPackage-type>java.lang.Boolean</InvertPackage-type>
+					<InvertText>false</InvertText>
+					<InvertText-type>java.lang.Boolean</InvertText-type>
+					<InvertTitle>false</InvertTitle>
+					<InvertTitle-type>java.lang.Boolean</InvertTitle-type>
+					<PackageName>com.garmin.android.apps.connectmobile</PackageName>
+					<PackageName-type>java.lang.String</PackageName-type>
+					<RegexApp>false</RegexApp>
+					<RegexApp-type>java.lang.Boolean</RegexApp-type>
+					<RegexCategoryName>false</RegexCategoryName>
+					<RegexCategoryName-type>java.lang.Boolean</RegexCategoryName-type>
+					<RegexPackage>false</RegexPackage>
+					<RegexPackage-type>java.lang.Boolean</RegexPackage-type>
+					<RegexText>false</RegexText>
+					<RegexText-type>java.lang.Boolean</RegexText-type>
+					<RegexTitle>false</RegexTitle>
+					<RegexTitle-type>java.lang.Boolean</RegexTitle-type>
+					<Text>BattGuesstimate</Text>
+					<Text-type>java.lang.String</Text-type>
+					<TextNames>&lt;null&gt;</TextNames>
+					<TextNames-type>java.lang.String</TextNames-type>
+					<Title>Connect IQ™</Title>
+					<Title-type>java.lang.String</Title-type>
+					<Type>0</Type>
+					<Type-type>java.lang.String</Type-type>
+					<com.twofortyfouram.locale.intent.extra.BLURB>Event Behaviour: true
+Notification Type: Only Created Notifications
+Notification App: Connect
+Notification Title: Connect IQ™
+Notification Text: BattGuesstimate
+Package Name: com.garmin.android.apps.connectmobile</com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<net.dinglisch.android.tasker.EXTRA_NSR_DEPRECATED>true</net.dinglisch.android.tasker.EXTRA_NSR_DEPRECATED>
+					<net.dinglisch.android.tasker.EXTRA_NSR_DEPRECATED-type>java.lang.Boolean</net.dinglisch.android.tasker.EXTRA_NSR_DEPRECATED-type>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES>&lt;StringArray sr=""&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;%anapp
+01. App name
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;%anbackgroundimage
+Background Image
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES2&gt;%anbigicon
+04. Icon When Expanded
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES2&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES3&gt;%anbutton1action
+13. Button Action 1
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES3&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES4&gt;%anbutton1icon
+13. Button 1 Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES4&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES5&gt;%anbutton1text
+12. Button 1 Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES5&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES6&gt;%anbutton2action
+15. Button 2 Action
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES6&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES7&gt;%anbutton2icon
+15. Button 2 Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES7&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES8&gt;%anbutton2text
+14. Button 2 Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES8&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES9&gt;%anbutton3action
+17. Button 3 Action
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES9&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES10&gt;%anbutton3icon
+17. Button 3 Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES10&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES11&gt;%anbutton3text
+16. Button 3 Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES11&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES12&gt;%anbutton4action
+18. Button 4 Action
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES12&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES13&gt;%anbutton4icon
+18. Button 4 Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES13&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES14&gt;%anbutton4text
+18. Button 4 Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES14&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES15&gt;%anbutton5action
+19. Button 5 Action
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES15&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES16&gt;%anbutton5icon
+19. Button 5 Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES16&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES17&gt;%anbutton5text
+19. Button 5 Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES17&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES18&gt;%ancancelreason
+Reason Cancelled Code
+Code of the reason the notification was cancelled&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES18&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES19&gt;%ancancelreasontext
+Reason Cancelled Text
+Reason the notification was cancelled&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES19&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES20&gt;%ancategoryid
+Category ID
+Notification's category ID&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES20&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES21&gt;%ancategoryimportance
+Category Importance
+Notification's category Importance (0-5)&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES21&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES22&gt;%ancategoryname
+Category Name
+Notification's category Name&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES22&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES23&gt;%ancolor
+Color
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES23&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES24&gt;%anconversation
+Conversation
+JSON Structure with all conversation related fields, i.e. text, sender, image, etc&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES24&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES25&gt;%andismissaction
+23. Action On Dismiss Id
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES25&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES26&gt;%anextrainfo
+Extra Info
+Extra info that you can add to an AutoNotification notification when you create it. Empty for others.&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES26&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES27&gt;%anextras
+All Extras
+All extras from the notification that are not already in one of the other variables in JSON format&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES27&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES28&gt;%angroup
+Group
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES28&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES29&gt;%anhasmediasession
+Has Media Session
+All extras from the notification that are not already in one of the other variables in JSON format&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES29&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES30&gt;%anicon
+04. Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES30&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES31&gt;%anid
+Id
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES31&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES32&gt;%aninfotext
+10. Info Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES32&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES33&gt;%ankey
+Key
+A unique instance key for this notification&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES33&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES34&gt;%annumber
+Number
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES34&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES35&gt;%anpackage
+Package Name
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES35&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES36&gt;%anpeople
+People
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES36&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES37&gt;%anpersistent
+Is Persistent
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES37&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES38&gt;%anpicture
+05. Picture
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES38&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES39&gt;%anpriority
+Priority
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES39&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES40&gt;%anprogress
+Progress
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES40&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES41&gt;%anprogressindeterminate
+Progress Indeterminate
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES41&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES42&gt;%anprogressmax
+Progress Max
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES42&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES43&gt;%anreplyaction
+20. Action Reply
+Use with AutoNotification Reply&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES43&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES44&gt;%anreplychoices()
+Reply Choices
+Choices for reply available as quick actions in the notification&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES44&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES45&gt;%anshowchronometer
+Show Chronometer
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES45&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES46&gt;%ansortkey
+Sort Key
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES46&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES47&gt;%anstatus
+Cancelled Or Created
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES47&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES48&gt;%anstatusbaricon
+07. Status Bar Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES48&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES49&gt;%anstatusbaricon
+Status Bar Icon
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES49&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES50&gt;%ansubtext
+08. SubText
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES50&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES51&gt;%ansummary
+Is Summary
+Will be set to &amp;lt;b&amp;gt;1&amp;lt;/b&amp;gt; if it's a summary and &amp;lt;b&amp;gt;will not be set&amp;lt;/b&amp;gt; otherwise.&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES51&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES52&gt;%ansummarytext
+09. Summary Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES52&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES53&gt;%antag
+Tag
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES53&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES54&gt;%antext
+03. Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES54&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES55&gt;%antextbig
+03. Text When Expanded
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES55&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES56&gt;%antextlines()
+11. Text Lines
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES56&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES57&gt;%anticker
+03. Ticker Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES57&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES58&gt;%antitle
+02. Title
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES58&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES59&gt;%antitlebig
+02. Title When Expanded
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES59&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES60&gt;%antouchaction
+22. Action On Touch Id
+Use with AutoNotification Actions&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES60&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES61&gt;%anuserid
+User ID
+User ID for whom this notification is intended&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES61&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES62&gt;%anwhen
+Show When
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES62&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES63&gt;%anwhentime
+When
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES63&gt;&lt;/StringArray&gt;</net.dinglisch.android.tasker.RELEVANT_VARIABLES>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>[Ljava.lang.String;</net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>
+					<net.dinglisch.android.tasker.extras.REQUESTED_TIMEOUT>0</net.dinglisch.android.tasker.extras.REQUESTED_TIMEOUT>
+					<net.dinglisch.android.tasker.extras.REQUESTED_TIMEOUT-type>java.lang.Integer</net.dinglisch.android.tasker.extras.REQUESTED_TIMEOUT-type>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>App Title Text PackageName Type plugininstanceid plugintypeid </net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>java.lang.String</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+					<plugininstanceid>eed9613a-5c82-4be5-8211-265e3473d10f</plugininstanceid>
+					<plugininstanceid-type>java.lang.String</plugininstanceid-type>
+					<plugintypeid>com.joaomgcd.autonotification.intent.IntentInterceptNotificationEvent</plugintypeid>
+					<plugintypeid-type>java.lang.String</plugintypeid-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">com.joaomgcd.autonotification</Str>
+			<Str sr="arg2" ve="3">com.joaomgcd.autonotification.activity.ActivityConfigNotificationInterceptTaskerEvent</Str>
+			<Int sr="arg3" val="1"/>
+		</Event>
+	</Profile>
+	<Task sr="task21">
+		<cdate>1665127661108</cdate>
+		<edate>1665130759081</edate>
+		<id>21</id>
+		<nme>Garmin BatteryGuestimate</nme>
+		<pri>6</pri>
+		<Action sr="act0" ve="7">
+			<code>2046367074</code>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<App>&lt;null&gt;</App>
+					<App-type>java.lang.String</App-type>
+					<CancelAll>true</CancelAll>
+					<CancelAll-type>java.lang.Boolean</CancelAll-type>
+					<CancelPersistent>false</CancelPersistent>
+					<CancelPersistent-type>java.lang.Boolean</CancelPersistent-type>
+					<CaseinsensitiveApp>false</CaseinsensitiveApp>
+					<CaseinsensitiveApp-type>java.lang.Boolean</CaseinsensitiveApp-type>
+					<CaseinsensitivePackage>false</CaseinsensitivePackage>
+					<CaseinsensitivePackage-type>java.lang.Boolean</CaseinsensitivePackage-type>
+					<CaseinsensitiveText>false</CaseinsensitiveText>
+					<CaseinsensitiveText-type>java.lang.Boolean</CaseinsensitiveText-type>
+					<CaseinsensitiveTitle>false</CaseinsensitiveTitle>
+					<CaseinsensitiveTitle-type>java.lang.Boolean</CaseinsensitiveTitle-type>
+					<ExactApp>false</ExactApp>
+					<ExactApp-type>java.lang.Boolean</ExactApp-type>
+					<ExactPackage>false</ExactPackage>
+					<ExactPackage-type>java.lang.Boolean</ExactPackage-type>
+					<ExactText>false</ExactText>
+					<ExactText-type>java.lang.Boolean</ExactText-type>
+					<ExactTitle>false</ExactTitle>
+					<ExactTitle-type>java.lang.Boolean</ExactTitle-type>
+					<InterceptApps>&lt;StringArray sr=""&gt;&lt;_array_InterceptApps0&gt;com.garmin.android.apps.connectmobile&lt;/_array_InterceptApps0&gt;&lt;/StringArray&gt;</InterceptApps>
+					<InterceptApps-type>[Ljava.lang.String;</InterceptApps-type>
+					<InvertApp>false</InvertApp>
+					<InvertApp-type>java.lang.Boolean</InvertApp-type>
+					<InvertPackage>false</InvertPackage>
+					<InvertPackage-type>java.lang.Boolean</InvertPackage-type>
+					<InvertText>false</InvertText>
+					<InvertText-type>java.lang.Boolean</InvertText-type>
+					<InvertTitle>false</InvertTitle>
+					<InvertTitle-type>java.lang.Boolean</InvertTitle-type>
+					<OtherId>&lt;null&gt;</OtherId>
+					<OtherId-type>java.lang.String</OtherId-type>
+					<OtherPackage>&lt;null&gt;</OtherPackage>
+					<OtherPackage-type>java.lang.String</OtherPackage-type>
+					<OtherTag>&lt;null&gt;</OtherTag>
+					<OtherTag-type>java.lang.String</OtherTag-type>
+					<PackageName>&lt;null&gt;</PackageName>
+					<PackageName-type>java.lang.String</PackageName-type>
+					<RegexApp>false</RegexApp>
+					<RegexApp-type>java.lang.Boolean</RegexApp-type>
+					<RegexPackage>false</RegexPackage>
+					<RegexPackage-type>java.lang.Boolean</RegexPackage-type>
+					<RegexText>true</RegexText>
+					<RegexText-type>java.lang.Boolean</RegexText-type>
+					<RegexTitle>false</RegexTitle>
+					<RegexTitle-type>java.lang.Boolean</RegexTitle-type>
+					<Text>BetaBattGuestimate.*</Text>
+					<Text-type>java.lang.String</Text-type>
+					<Title>&lt;null&gt;</Title>
+					<Title-type>java.lang.String</Title-type>
+					<com.twofortyfouram.locale.intent.extra.BLURB>Cancel All: true
+Notification Apps: Connect
+Notification Text: BetaBattGuestimate.* (regex)</com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES>&lt;StringArray sr=""&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;%err
+Error Code
+Only available if you select &amp;lt;b&amp;gt;Continue Task After Error&amp;lt;/b&amp;gt; and the action ends in error&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;%errmsg
+Error Message
+Only available if you select &amp;lt;b&amp;gt;Continue Task After Error&amp;lt;/b&amp;gt; and the action ends in error&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;&lt;/StringArray&gt;</net.dinglisch.android.tasker.RELEVANT_VARIABLES>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>[Ljava.lang.String;</net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>InterceptApps Text plugininstanceid plugintypeid </net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>java.lang.String</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+					<notificaitionid>&lt;null&gt;</notificaitionid>
+					<notificaitionid-type>java.lang.String</notificaitionid-type>
+					<plugininstanceid>4cdb8f1f-a84e-4fcc-9479-b7d4656cb869</plugininstanceid>
+					<plugininstanceid-type>java.lang.String</plugininstanceid-type>
+					<plugintypeid>com.joaomgcd.autonotification.intent.IntentCancelNotification</plugintypeid>
+					<plugintypeid-type>java.lang.String</plugintypeid-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">com.joaomgcd.autonotification</Str>
+			<Str sr="arg2" ve="3">com.joaomgcd.autonotification.activity.ActivityConfigCancelNotification</Str>
+			<Int sr="arg3" val="20"/>
+			<Int sr="arg4" val="1"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>523</code>
+			<Str sr="arg0" ve="3">Garmin Battery Guesstimate</Str>
+			<Str sr="arg1" ve="3">Your Garmin watch has reached the predefined battery level!</Str>
+			<Str sr="arg10" ve="3"/>
+			<Str sr="arg11" ve="3">super_tasker_notifications_created_by_me_the_developer</Str>
+			<Img sr="arg2" ve="2">
+				<nme>hd_device_access_battery</nme>
+			</Img>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5" val="3"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7" val="0"/>
+			<Int sr="arg8" val="0"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+	</Task>
+</TaskerData>
