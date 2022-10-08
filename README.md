@@ -1,6 +1,8 @@
 # Garmin Battery Guesstimate
 
-Shows the battery consumption over time and estimates how long the battery would last (better than the build-in estimation).
+1. Shows the battery consumption over time
+2. Estimates how long the battery would last (better than the build-in estimation)
+3. Notifies the connected phone when a set threshold is reached during charging (to extend the battery lifetime)
 
 Connect IQ store link: https://apps.garmin.com/en-US/apps/572b8232-7fb6-4e4f-a938-2395d0df3c7c
 
@@ -13,6 +15,8 @@ I don't know exactly how Garmin predicts how long the battery of a watch would l
 During a longer activity you can check how much battery charge you have lost so far in the last x minutes/hours and see how long your battery would last if you keep on using it the same way.
 
 Also, this app shows you nicely if you have gained any battery charge by solar.
+
+As a small extra the app can help you extend the overall battery lifetime by configuring a [charging threshold](#charging-threshold), so you don't charge the battery to 100% but for e.g. only to 90%.
 
 ## Screenshots
 
@@ -28,6 +32,7 @@ The battery status is collected every 15min in the background and this date is u
 1. show the battery charge/discharge over time
 2. calculate how long the battery might last
 3. show a graph of the battery status
+4. notify the user when the battery reached a specific level during charging (off by default)
 
 ## Usage
 
@@ -37,11 +42,13 @@ The battery status is collected every 15min in the background and this date is u
 - in the details view use the UP/DOWN buttons to cycle through the different time periods
 - in the details view press the GPS button to view the battery graph
 - in the graph view use the UP/DOWN buttons to cycle through the different time periods
+- set the charging threshold through the Connect IQ app if you want to receive a notification when the battery reached a specific level during charging
 
 ### Settings
 
 Use the Connect IQ app to configure the widget.
-1. set the time-frames to be displayed in the glance view
+1. time-frames to be displayed in the glance view
+2. charging threshold to send a notification to the connected mobile phone
 
 ## Different predictions of how much longer the battery will last
 
@@ -68,6 +75,18 @@ If you in a battery consuming activity and want to know how long the battery wou
 For the case that you have recharged your watch with the cable, or you don't expect much solar input for the future (or your watch does not have solar in the first place) the prediction in the graph view will give you a better idea for a long-term prediction, but it will take longer to get the results.
 
 In both cases the prediction is rather pessimistic, so it will always floor decimal results (an estimation of 5.9h will show 5h)
+
+## Charging Threshold
+
+Setting the `Battery Charge Threshold` to a value higher than 0 will cause the watch to send a notification to the connected phone when reaching that value during charging.
+The check happens every 15min, so you might want to set the threshold to a relatively low value, because depending on your watch and the charger the charging time might be pretty short, so it can easily happen that by the time the check happens the battery is already charged much higher value.
+
+**The notification is actually a hack!** There is no easy way to send a notification to the phone without creating a whole companion app. The hack is to request the phone to open a website. When the set threshold is reached the phone will display a notification saying that Garmin IQ wants to open the website `http://battery-level-reached.garmin`.
+On an Android phone you can use [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en) together with [AutoNotification](https://play.google.com/store/apps/details?id=com.joaomgcd.autonotification&hl=en) to intercept the notification and to display something more sensible. Import [this tasker profile & task](https://github.com/individual-it/BatteryGuesstimate/blob/master/Garmin_BatteryGuestimate.prf.xml) for that.
+
+## Permissions
+- run in the **Background**: needed to check the battery status every 15min
+- **Send/receive** information to/from the Internet: needed to send the notification to the phone. **NO** information is send/received to/from the Internet! It only sends a notification to the phone requesting to open a dummy website to notify the user about the reached threshold.
 
 ## supported devices
 - Garmin Instinct 2 Series
