@@ -75,7 +75,7 @@
                 <listEntry value="1344">14 days</listEntry>
             </settingConfig>
         </setting>
-        <setting propertyKey="@Properties.charge-notification" title="Notify the mobile phone when the watch reaches this battery level during charging">
+        <setting propertyKey="@Properties.charge-notification" title="Battery Charge Treshold. Notify the mobile phone when the watch reaches this battery level during charging">
             <settingConfig type="numeric" min="0" max="100"/>
         </setting>
     </settings>
