@@ -32,13 +32,17 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
       minutes = timeFrameStepsToShow * 15;
       timeString = $.timePeriodFormat(minutes, false);
       guesstimate = $.guesstimate(batteryChange, minutes);
-      dc.drawText(
-        0,
-        (i+1)*20,
-        Graphics.FONT_XTINY,
-        timeString + ":" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate),
-        Graphics.TEXT_JUSTIFY_LEFT
-      );
+      if (deviceSpecificView has :drawDetails) {
+        deviceSpecificView.drawDetails(i+1, timeString, $.formatOutput(batteryChange), $.guesstimateFormat(guesstimate));
+      } else {
+        dc.drawText(
+          0,
+          (i+1)*20,
+          Graphics.FONT_XTINY,
+          timeString + ":" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate),
+          Graphics.TEXT_JUSTIFY_LEFT
+        );
+      }
     }
   }
 }

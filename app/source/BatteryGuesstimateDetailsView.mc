@@ -20,6 +20,12 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         }
         _guesstimate = $.guesstimate(_battChangeInPercent, _minutes);
         WatchUi.View.initialize();
+        if (Toybox.WatchUi.View has :setClockHandPosition) {
+            self.setClockHandPosition(
+                {
+                    :clockState => WatchUi.ANALOG_CLOCK_STATE_HOLDING, :hour => 90, :minute => 90}
+                );
+        }
     }
 
     //! Load your resources here

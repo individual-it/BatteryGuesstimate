@@ -1,5 +1,6 @@
 import Toybox.Lang;
 import Toybox.Graphics;
+import Toybox.WatchUi;
 
 class DeviceView {
     var Y_ZERO_LINE as Integer = 190;
@@ -29,7 +30,7 @@ class DeviceView {
         );
     }
 
-    function drawProgressIndicator(dc as Dc, progress as Float) as Void {
+    function drawProgressIndicator(dc as Dc, progress as Float, parentView as View) as Void {
         dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2, dc.getHeight() / 2, Graphics.ARC_CLOCKWISE, 0, progress);
     }
 }
