@@ -1,3 +1,4 @@
 app/bin
 **/.vscode
 tests/bin
+.idea
