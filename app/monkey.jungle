@@ -4,6 +4,7 @@ base.sourcePath = source
 
 instinct2.sourcePath = $(instinct2.sourcePath);source-instinct2
 instinct2s.sourcePath = $(instinct2s.sourcePath);source-instinct2s
+instinctcrossover.sourcePath = $(instinctcrossover.sourcePath);source-instinctcrossover
 descentg1.sourcePath = $(descentg1.sourcePath);source-instinct2
 descentg1.resourcePath = $(descentg1.resourcePath);resources-instinct2
 fenix6.sourcePath = $(fenix6.sourcePath);source-round-260_280
