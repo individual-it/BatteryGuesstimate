@@ -156,6 +156,9 @@ class BatteryGuesstimateView extends WatchUi.View {
             View.onUpdate(dc);
 
             _deviceSpecificView.drawButtonHint(dc);
+            _deviceSpecificView.drawExportButtonHint(dc);
+            
+
             var x;
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {

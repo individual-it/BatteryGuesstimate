@@ -77,7 +77,6 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
                 return;
             }
             // TODO show export icon
-            // TODO show progress idicatior
             var headers = {"Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON};
 
             if (username != "" || password != "") {
