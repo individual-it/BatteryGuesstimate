@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 import Toybox.System;
 import Toybox.Application.Storage;
 import Toybox.Math;
-
+using Toybox.Application.Properties;
 
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 const DATA_POS_START = GRAPH_WIDTH-1;
@@ -156,8 +156,9 @@ class BatteryGuesstimateView extends WatchUi.View {
             View.onUpdate(dc);
 
             _deviceSpecificView.drawButtonHint(dc);
-            _deviceSpecificView.drawExportButtonHint(dc);
-            
+            if (!(Properties.getValue("export-url") as String).equals("")) {
+                _deviceSpecificView.drawExportButtonHint(dc);
+            }
 
             var x;
 
