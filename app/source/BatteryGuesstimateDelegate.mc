@@ -57,7 +57,7 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
     // set up the response callback function
     public function onReceive(responseCode as Number, data as Dictionary or String or Null) as Void{
         if (responseCode >= 200 && responseCode < 299) {
-            _view.setMessage(null);
+            _view.setMessage("Done!");
         } else {
             _view.setMessage("ERROR\n'" + responseCode + "'");
             Communications.openWebPage("https://github.com/individual-it/BatteryGuesstimate/#export", null, null);
@@ -76,7 +76,6 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
                 WatchUi.requestUpdate();
                 return;
             }
-            // TODO show export icon
             var headers = {"Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON};
 
             if (username != "" || password != "") {
@@ -86,7 +85,6 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
             var options = {
                 :method => Communications.HTTP_REQUEST_METHOD_PUT,
                 :headers => headers,
-                :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_TEXT_PLAIN
             };
             _view.setMessage("sending...");
             WatchUi.requestUpdate();
