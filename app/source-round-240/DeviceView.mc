@@ -6,7 +6,7 @@ class DeviceView {
     var Y_ZERO_LINE as Integer = 190;
     var X_MARGIN_LEFT as Integer = 70;
     var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_TINY;
-    var STATS_X_ALLINGMENT as Integer  = 170;
+    var STATS_X_ALLINGMENT as Integer  = 160;
     var STATS_ICON_X_ALLINGMENT as Integer  = 75;
     var STATS_Y_START as Integer  = 8;
     var STATS_LINE_HIGHT as Integer  = 22;
@@ -19,6 +19,14 @@ class DeviceView {
         dc.drawLine(0, 100, 20, 100);
         dc.drawLine(20, 100, 50, 190);
         dc.drawLine(50, 190, 20, 220);
+    }
+
+    function drawExportButtonHint(dc as Dc) as Void {
+        var exportIcon = Application.loadResource(Rez.Drawables.ExportIcon) as WatchUi.BitmapResource;
+        var x = dc.getWidth()*0.71;
+        var y = 40;
+        dc.fillCircle(x+31, y+31, 31);
+        dc.drawBitmap(x+8,y+12, exportIcon);
     }
 
     function drawTimeText(dc as Dc, timeText as String) as Void {
