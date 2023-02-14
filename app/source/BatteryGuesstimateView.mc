@@ -97,12 +97,15 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
+        var crossoverOffset = 0;
+        if (WatchUi.View has :setClockHandPosition) {
+            crossoverOffset = 30;
+        }
         if (_errorMessage != null) {
-            // TODO adjust for crossover
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             dc.clear();
             dc.drawText(
-                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_XTINY,
                 _errorMessage,
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -111,7 +114,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         }
         if (_circularBufferPosition == null) {
             dc.drawText(
-                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_MEDIUM,
                 "no data",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -123,7 +126,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             dc.clear();
             dc.drawText(
-                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_LARGE,
                 "loading ...",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
