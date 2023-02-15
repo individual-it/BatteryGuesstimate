@@ -21,6 +21,14 @@ class DeviceView {
         dc.drawLine(50, 200, 20, 230);
     }
 
+    function drawExportButtonHint(dc as Dc) as Void {
+        var exportIcon = Application.loadResource(Rez.Drawables.ExportIcon) as WatchUi.BitmapResource;
+        var x = dc.getWidth()*0.75;
+        var y = 50;
+        dc.fillCircle(x+31, y+31, 31);
+        dc.drawBitmap(x+8,y+12, exportIcon);
+    }
+
     function drawTimeText(dc as Dc, timeText as String) as Void {
         dc.drawText(
             dc.getWidth() / 2, dc.getHeight() - 25,

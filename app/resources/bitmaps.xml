@@ -1,4 +1,3 @@
 <resources>
-    <bitmap id="LauncherIcon" filename="images/icon.png" />
     <bitmap id="ExportIcon" filename="images/file-export.png" />
 </resources>

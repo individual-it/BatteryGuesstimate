@@ -49,6 +49,7 @@ The battery status is collected every 15min in the background and this date is u
 Use the Connect IQ app to configure the widget.
 1. time-frames to be displayed in the glance view
 2. charging threshold to send a notification to the connected mobile phone
+3. export settings
 
 ## Different predictions of how much longer the battery will last
 
@@ -84,9 +85,28 @@ The check happens every 15min, so you might want to set the threshold to a relat
 **The notification is actually a hack!** There is no easy way to send a notification to the phone without creating a whole companion app. The hack is to request the phone to open a website. When the set threshold is reached the phone will display a notification saying that Garmin IQ wants to open the website `http://battery-level-reached.garmin`.
 On an Android phone you can use [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en) together with [AutoNotification](https://play.google.com/store/apps/details?id=com.joaomgcd.autonotification&hl=en) to intercept the notification and to display something more sensible. Import [this tasker profile & task](https://github.com/individual-it/BatteryGuesstimate/blob/master/Garmin_BatteryGuestimate.prf.xml) for that.
 
+## Export
+
+**This feature might change in the future, depending on the feedback.**
+
+The battery data, that was collected over time, can be exported to a WebDAV compatible cloud-storage (e.g. OwnCloud or Nextcloud)
+
+1. Open the settings of the widget in the Connect IQ app
+2. Enter the full URL of the place you want the file be written to. E.g. `https://<server>/remote.php/webdav/garmin.json`
+for OwnCloud.
+   - The URL **must** start with `https://`, and must be using a valid certificate.
+   - If a file already exists at the destination, it will be overwritten without confirmation
+3. If your server requires authentication, enter the username and password.
+4. In the graph view press the "GPS" button to start the export.
+5. If the transfer succeeded, a "Done!" message is displayed.
+    - The exported file will contain the data of the current graph in JSON format (this is a bit of technical format, but Garmin is limiting what can be sent from the watch.)To further work with the data you can convert it into the Excel format using this tool: https://www.convertcsv.com/json-to-csv.htm
+6. If the transfer failed an error code is displayed.
+   - negative codes come from Garmin, here a list with their meanings: https://developer.garmin.com/connect-iq/api-docs/Toybox/Communications.html
+   - positive codes are HTTP error codes, here a list with the meanings: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
 ## Permissions
 - run in the **Background**: needed to check the battery status every 15min
-- **Send/receive** information to/from the Internet: needed to send the notification to the phone. **NO** information is send/received to/from the Internet! It only sends a notification to the phone requesting to open a dummy website to notify the user about the reached threshold.
+- **Send/receive** information to/from the Internet: needed to send the notification to the phone and for the export function.
 
 ## supported devices
 - Garmin Instinct 2 Series

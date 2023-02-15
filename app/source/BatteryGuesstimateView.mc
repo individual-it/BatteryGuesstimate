@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 import Toybox.System;
 import Toybox.Application.Storage;
 import Toybox.Math;
-
+using Toybox.Application.Properties;
 
 const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the graph
 const DATA_POS_START = GRAPH_WIDTH-1;
@@ -20,6 +20,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _maxBattValue as Float = 0.0;
     private var _cumulatedDischarge as Float = 0.0;
     private var _cumulatedCharge as Float = 0.0;
+    private var _message as String?;
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
@@ -29,6 +30,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         _maxBattValue = 0.0;
         _cumulatedDischarge = 0.0;
         _cumulatedCharge = 0.0;
+        _message = null;
     }
 
     // only for tests
@@ -54,6 +56,10 @@ class BatteryGuesstimateView extends WatchUi.View {
     // only for tests
     public function getCumulatedCharge() as Float {
         return _cumulatedCharge;
+    }
+
+    public function setMessage(message as String?) as Void {
+        _message = message;
     }
 
     //! Constructor
@@ -91,9 +97,24 @@ class BatteryGuesstimateView extends WatchUi.View {
     //! Update the view
     //! @param dc Device Context
     public function onUpdate(dc as Dc) as Void {
+        var crossoverOffset = 0;
+        if (WatchUi.View has :setClockHandPosition) {
+            crossoverOffset = 30;
+        }
+        if (_message != null) {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            dc.clear();
+            dc.drawText(
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
+                Graphics.FONT_XTINY,
+                _message,
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+            );
+            return;
+        }
         if (_circularBufferPosition == null) {
             dc.drawText(
-                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_MEDIUM,
                 "no data",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -105,7 +126,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             dc.clear();
             dc.drawText(
-                dc.getWidth() / 2, (dc.getHeight() / 2) + 10,
+                dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_LARGE,
                 "loading ...",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -113,7 +134,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             var progress = 360.0/GRAPH_WIDTH*(GRAPH_WIDTH-_dataPos)*-1;
             _deviceSpecificView.drawProgressIndicator(dc, progress as Float, self as View);
 
-            _graphData[_dataPos] = getBatteryData(_stepsToShowInGraph);
+            _graphData[_dataPos] = getBatteryDataAverage(_stepsToShowInGraph);
             if (_graphData[_dataPos] < _minBattValue) {
                 _minBattValue = _graphData[_dataPos] as Float;
             }
@@ -138,6 +159,10 @@ class BatteryGuesstimateView extends WatchUi.View {
             View.onUpdate(dc);
 
             _deviceSpecificView.drawButtonHint(dc);
+            if (!(Properties.getValue("export-url") as String).equals("")) {
+                _deviceSpecificView.drawExportButtonHint(dc);
+            }
+
             var x;
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
@@ -252,8 +277,21 @@ class BatteryGuesstimateView extends WatchUi.View {
         }
     }
 
+    public function getPartOfStorageBuffer(steps as Integer) as Array<Float> {
+        var result = new [steps];
+        var circularBufferPosition =  Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
+        for (var i = steps-1; i >= 0; i = i-1) {
+            result[i] = _storageBuffer[circularBufferPosition];
+            circularBufferPosition = circularBufferPosition - 1;
+            if (circularBufferPosition < 0) {
+                circularBufferPosition = $.MAX_STEPS_TO_CALC;
+            }
+        }
+        return result as Array<Float>;
+    }
+
     // placed in a seperate function to make it testable
-    public function getBatteryData(stepsToShowInGraph as Integer) as Float? {
+    public function getBatteryDataAverage(stepsToShowInGraph as Integer) as Float? {
         var batteryValue = 0;
         var storageValue;
         var stepsPerPixelX = stepsToShowInGraph / GRAPH_WIDTH; // for now it must be dividable by 96
@@ -277,7 +315,6 @@ class BatteryGuesstimateView extends WatchUi.View {
             }
         }
         return (batteryValue / stepsPerPixelX) as Float;
-
     }
     //! Called when this View is removed from the screen. Save the
     //! state of your app here.

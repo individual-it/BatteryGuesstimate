@@ -24,6 +24,12 @@ class DeviceView {
         dc.drawLine(10, 140, 0, 140);
     }
 
+    function drawExportButtonHint(dc as Dc) as Void {
+        dc.drawLine(145, 1, 145, 60);
+        dc.drawLine(145, 60, 175, 60);
+        dc.drawText(150, 30, Graphics.FONT_MEDIUM, "=>", Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
     function drawTimeText(dc as Dc, timeText as String) as Void {
         dc.drawText(
             45, 30,
