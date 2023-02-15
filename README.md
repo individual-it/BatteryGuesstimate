@@ -89,14 +89,15 @@ On an Android phone you can use [Tasker](https://play.google.com/store/apps/deta
 
 **This feature might change in the future, depending on the feedback.**
 
-The data can be exported to a WebDAV compatible cloud-storage (e.g. OwnCloud or Nextcloud)
-1. Open the settings of thw widget in the Connect IQ app
+The battery data, that was collected over time, can be exported to a WebDAV compatible cloud-storage (e.g. OwnCloud or Nextcloud)
+
+1. Open the settings of the widget in the Connect IQ app
 2. Enter the full URL of the place you want the file be written to. E.g. `https://<server>/remote.php/webdav/garmin.json`
 for OwnCloud.
    - The URL **must** start with `https://`, and must be using a valid certificate.
    - If a file already exists at the destination, it will be overwritten without confirmation
 3. If your server requires authentication, enter the username and password.
-4. In the graph view pressing the "GPS" button will start the export.
+4. In the graph view press the "GPS" button to start the export.
 5. If the transfer succeeded, a "Done!" message is displayed.
     - The exported file will contain the data of the current graph in JSON format (this is a bit of technical format, but Garmin is limiting what can be sent from the watch.)To further work with the data you can convert it into the Excel format using this tool: https://www.convertcsv.com/json-to-csv.htm
 6. If the transfer failed an error code is displayed.
