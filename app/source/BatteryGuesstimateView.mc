@@ -20,7 +20,7 @@ class BatteryGuesstimateView extends WatchUi.View {
     private var _maxBattValue as Float = 0.0;
     private var _cumulatedDischarge as Float = 0.0;
     private var _cumulatedCharge as Float = 0.0;
-    private var _errorMessage as String?;
+    private var _message as String?;
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
@@ -30,7 +30,7 @@ class BatteryGuesstimateView extends WatchUi.View {
         _maxBattValue = 0.0;
         _cumulatedDischarge = 0.0;
         _cumulatedCharge = 0.0;
-        _errorMessage = null;
+        _message = null;
     }
 
     // only for tests
@@ -58,8 +58,8 @@ class BatteryGuesstimateView extends WatchUi.View {
         return _cumulatedCharge;
     }
 
-    public function setMessage(errorMessage as String?) as Void {
-        _errorMessage = errorMessage;
+    public function setMessage(message as String?) as Void {
+        _message = message;
     }
 
     //! Constructor
@@ -101,13 +101,13 @@ class BatteryGuesstimateView extends WatchUi.View {
         if (WatchUi.View has :setClockHandPosition) {
             crossoverOffset = 30;
         }
-        if (_errorMessage != null) {
+        if (_message != null) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             dc.clear();
             dc.drawText(
                 dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_XTINY,
-                _errorMessage,
+                _message,
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             return;
