@@ -98,6 +98,7 @@ for OwnCloud.
 3. If your server requires authentication, enter the username and password.
 4. In the graph view pressing the "GPS" button will start the export.
 5. If the transfer succeeded, a "Done!" message is displayed.
+    - The exported file will contain the data of the current graph in JSON format (this is a bit of technical format, but Garmin is limiting what can be sent from the watch.)To further work with the data you can convert it into the Excel format using this tool: https://www.convertcsv.com/json-to-csv.htm
 6. If the transfer failed an error code is displayed.
    - negative codes come from Garmin, here a list with their meanings: https://developer.garmin.com/connect-iq/api-docs/Toybox/Communications.html
    - positive codes are HTTP error codes, here a list with the meanings: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
