@@ -24,7 +24,19 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
     var minutes = 0;
     var timeString;
     for (var i=0; i<2; i++) {
-      timeFrameStepsToShow = Properties.getValue("glance-timeframe-" + i) as Integer;
+      try {
+        timeFrameStepsToShow = Properties.getValue("glance-timeframe-" + i) as Integer;
+         // getValue might still return a String
+         // see https://forums.garmin.com/developer/connect-iq/f/discussion/327089/unhandled-exception-in-a-simple-if-statement/1587695#1587695
+        timeFrameStepsToShow = timeFrameStepsToShow.toNumber();
+        if (timeFrameStepsToShow == null) { // happens if the string is not convertable to number, what really should not happen for us
+          timeFrameStepsToShow = i;
+        }
+      } catch (e) {
+        // key does not exist, set it to 15 / 30 min
+        timeFrameStepsToShow = i;
+      }
+
       batteryChange = $.getBattChangeInPercent(timeFrameStepsToShow);
       if (batteryChange == null) {
         batteryChange = 0.0;

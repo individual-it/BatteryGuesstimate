@@ -66,9 +66,24 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
     }
 
     private function makeRequest() as Void {
-        var url = Properties.getValue("export-url") as String;
-        var username = Properties.getValue("export-username") as String;
-        var password = Properties.getValue("export-password") as String;
+        var url = "";
+        var username = "";
+        var password = "";
+        try {
+            url = Properties.getValue("export-url") as String;
+        } catch (e) {
+            // the key does not exist, nothing to do, the default is already ""
+        }
+        try {
+            username = Properties.getValue("export-username") as String;
+        } catch (e) {
+            // the key does not exist, nothing to do, the default is already ""
+        }
+        try {
+            password = Properties.getValue("export-password") as String;
+        } catch (e) {
+            // the key does not exist, nothing to do, the default is already ""
+        }
         if (!url.equals("")) {
             var protocol = url.substring(0,8);
             if (protocol == null || !protocol.equals("https://")) {

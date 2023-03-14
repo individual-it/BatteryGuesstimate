@@ -99,7 +99,20 @@ class MyServiceDelegate extends System.ServiceDelegate {
         System.println("circular buffer " + circularBufferPosition + " => " + systemStats.battery);
         Storage.setValue(CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2, circularBufferPosition);
 
-        var chargeNotification = Properties.getValue("charge-notification") as Integer;
+        var chargeNotification = 0;
+        try {
+            chargeNotification = Properties.getValue("charge-notification") as Integer;
+        } catch (e) {
+            // the key does not exist, nothing to do, the default is already 0
+        }
+        // getValue might still return a String
+        // see https://forums.garmin.com/developer/connect-iq/f/discussion/327089/unhandled-exception-in-a-simple-if-statement/1587695#1587695
+        chargeNotification = chargeNotification.toNumber();
+        // toNumber might return null, see https://developer.garmin.com/connect-iq/api-docs/Toybox/Lang/String.html#toNumber-instance_function
+        if (chargeNotification == null) {
+            chargeNotification = 0;
+        }
+
         if (systemStats.charging == true && chargeNotification > 0 && systemStats.battery >= chargeNotification) {
             Communications.openWebPage(
                     "http://battery-level-reached.garmin",

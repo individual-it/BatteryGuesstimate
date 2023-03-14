@@ -159,8 +159,12 @@ class BatteryGuesstimateView extends WatchUi.View {
             View.onUpdate(dc);
 
             _deviceSpecificView.drawButtonHint(dc);
-            if (!(Properties.getValue("export-url") as String).equals("")) {
-                _deviceSpecificView.drawExportButtonHint(dc);
+            try {
+                if (!(Properties.getValue("export-url") as String).equals("")) {
+                    _deviceSpecificView.drawExportButtonHint(dc);
+                }
+            } catch (e){
+                // key does not exist, so nothing to do
             }
 
             var x;
