@@ -170,9 +170,9 @@ class BatteryGuesstimateView extends WatchUi.View {
             var x;
 
             for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
-                x = i+_deviceSpecificView.X_MARGIN_LEFT;
+                x = i*2+_deviceSpecificView.X_MARGIN_LEFT;
                 var graphData = Math.round(_graphData[i] as Float / 2);
-                dc.drawLine(x, _deviceSpecificView.Y_ZERO_LINE, x, _deviceSpecificView.Y_ZERO_LINE-graphData  as Float);
+                dc.drawLine(x, _deviceSpecificView.Y_ZERO_LINE, x, _deviceSpecificView.Y_ZERO_LINE-graphData  as Float *2);
             }
             _drawingDone = true;
 

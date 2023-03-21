@@ -47,9 +47,10 @@ class BatteryGuesstimateGlanceView extends WatchUi.GlanceView {
       if (deviceSpecificView has :drawDetails) {
         deviceSpecificView.drawDetails(i+1, timeString, $.formatOutput(batteryChange), $.guesstimateFormat(guesstimate));
       } else {
+        var textHeight = dc.getTextDimensions("test", Graphics.FONT_XTINY)[1];
         dc.drawText(
           0,
-          (i+1)*20,
+          (i+1)*textHeight,
           Graphics.FONT_XTINY,
           timeString + ":" + $.formatOutput(batteryChange) + " -> " + $.guesstimateFormat(guesstimate),
           Graphics.TEXT_JUSTIFY_LEFT

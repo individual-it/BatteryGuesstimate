@@ -27,3 +27,5 @@ fr955.sourcePath = $(fr955.sourcePath);source-round-260_280
 fr955.resourcePath = $(fr955.resourcePath);resources-round-260_280
 enduro.sourcePath = $(enduro.sourcePath);source-round-260_280
 enduro.resourcePath = $(enduro.resourcePath);resources-round-260_280
+marq2.sourcePath = $(marq2.sourcePath);source-round-390
+marq2.resourcePath = $(marq2.resourcePath);resources-round-390
