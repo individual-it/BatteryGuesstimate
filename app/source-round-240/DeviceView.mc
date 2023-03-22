@@ -12,6 +12,7 @@ class DeviceView {
     var STATS_LINE_HIGHT as Integer  = 22;
     var STATS_GROUP_PADDING as Integer  = 3;
     var STATS_MIN_MAX_ARROW_TOP as Integer = 20;
+    var GRAPH_WIDTH_MULTIPLIER as Integer = 1;
 
     function drawButtonHint(dc as Dc) as Void {
         dc.drawText(3, 108, Graphics.FONT_SMALL, "+", Graphics.TEXT_JUSTIFY_LEFT);

@@ -5,6 +5,7 @@ import Toybox.WatchUi;
 class DeviceView {
     var Y_ZERO_LINE as Integer = 125;
     var X_MARGIN_LEFT as Integer = 20;
+    var GRAPH_WIDTH_MULTIPLIER as Integer = 1;
 
     var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_XTINY;
     var STATS_X_ALLINGMENT as Integer  = 95;
