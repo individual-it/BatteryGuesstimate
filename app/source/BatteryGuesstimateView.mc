@@ -107,7 +107,7 @@ class BatteryGuesstimateView extends WatchUi.View {
             dc.drawText(
                 dc.getWidth() / 2, (dc.getHeight() / 2) + 10 + crossoverOffset,
                 Graphics.FONT_XTINY,
-                _message,
+                _message as String,
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             return;

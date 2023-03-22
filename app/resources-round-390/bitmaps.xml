@@ -1,5 +1,4 @@
 <resources>
     <bitmap id="LauncherIcon" filename="images/icon.png" />
-    <bitmap id="QuestionMark" filename="images/question-mark.png" />
 
 </resources>

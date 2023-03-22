@@ -6,7 +6,7 @@ import Toybox.System;
 class BatteryGuesstimateDetailsView extends WatchUi.View {
     private var _minutes as Integer;
     private var _battChangeInPercent as Float;
-    private var _guesstimate as Integer;
+    private var _guesstimate as Integer?;
     private var _drawingDone as Boolean = false;
 
     //! Constructor
@@ -39,7 +39,7 @@ class BatteryGuesstimateDetailsView extends WatchUi.View {
         _drawingDone = false;
     }
 
-    public function setMessage(minutes as Integer, batteryChangeInPercent as Float, guesstimate as Integer) as Void {
+    public function setMessage(minutes as Integer, batteryChangeInPercent as Float, guesstimate as Integer?) as Void {
         _minutes = minutes;
         _battChangeInPercent = batteryChangeInPercent;
         _guesstimate = guesstimate;

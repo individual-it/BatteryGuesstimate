@@ -131,7 +131,6 @@ public function getBattChangeInPercent(stepsOfHistory as Integer) as Float? {
     var circularBufferPosition;
     var lastBatValue;
     var startCalculationBatValue;
-    var result;
 
     if (stepsOfHistory > MAX_STEPS_TO_CALC) {
         return null;
@@ -177,7 +176,7 @@ public function guesstimate(percentChange as Float, minutes as Integer) as Integ
 }
 
 (:glance)
-public function guesstimateFormat(minutes as Integer) as String{
+public function guesstimateFormat(minutes as Integer?) as String{
     if (minutes == null) {
         return "-";
     }
