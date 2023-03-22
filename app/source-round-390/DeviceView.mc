@@ -3,36 +3,37 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 
 class DeviceView {
-    var Y_ZERO_LINE as Integer = 190;
+    var Y_ZERO_LINE as Integer = 290;
     var X_MARGIN_LEFT as Integer = 80;
+    var GRAPH_WIDTH_MULTIPLIER as Integer = 2;
+
     var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_TINY;
-    var STATS_X_ALLINGMENT as Integer  = 170;
-    var STATS_ICON_X_ALLINGMENT as Integer  = 70;
-    var STATS_Y_START as Integer  = 8;
-    var STATS_LINE_HIGHT as Integer  = 22;
-    var STATS_GROUP_PADDING as Integer  = 3;
-    var STATS_MIN_MAX_ARROW_TOP as Integer = 20;
-    var GRAPH_WIDTH_MULTIPLIER as Integer = 1;
+    var STATS_X_ALLINGMENT as Integer  = 250;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 120;
+    var STATS_Y_START as Integer  = 15;
+    var STATS_LINE_HIGHT as Integer  = 30;
+    var STATS_GROUP_PADDING as Integer  = 5;
+    var STATS_MIN_MAX_ARROW_TOP as Integer = 34;
 
     function drawButtonHint(dc as Dc) as Void {
-        dc.drawText(3, 118, Graphics.FONT_SMALL, "+", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(30, 180, Graphics.FONT_SMALL, "-", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawLine(0, 110, 20, 110);
-        dc.drawLine(20, 110, 50, 200);
-        dc.drawLine(50, 200, 20, 230);
+        dc.drawText(15, 170, Graphics.FONT_MEDIUM, "+", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(39, 250, Graphics.FONT_MEDIUM, "-", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawLine(0, 150, 60, 200);
+        dc.drawLine(60, 200, 60, 290);
+        dc.drawLine(60, 290, 44, 320);
     }
 
     function drawExportButtonHint(dc as Dc) as Void {
         var exportIcon = Application.loadResource(Rez.Drawables.ExportIcon) as WatchUi.BitmapResource;
         var x = dc.getWidth()*0.75;
-        var y = 50;
+        var y = 80;
         dc.fillCircle(x+31, y+31, 31);
         dc.drawBitmap(x+8,y+12, exportIcon);
     }
 
     function drawTimeText(dc as Dc, timeText as String) as Void {
         dc.drawText(
-            dc.getWidth() / 2, dc.getHeight() - 25,
+            dc.getWidth() / 2, dc.getHeight() - 35,
             Graphics.FONT_MEDIUM,
             timeText,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER

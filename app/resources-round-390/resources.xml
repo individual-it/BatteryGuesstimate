@@ -1,0 +1,26 @@
+<resources>
+    <layout id="ChartLayout">
+        <label x="290" y="187" text="100%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="290" y="238" text="50%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="290" y="288" text="0%" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <drawable id="ChartBackground"/>
+    </layout>
+    <layout id="DetailsLayout">
+        <label x="170" y="135" text="BATTERY" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="170" y="170" text="CHANGE:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="170" y="280" text="TIME " color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <label x="170" y="315" text="LEFT:" color="Graphics.COLOR_WHITE" background="Gfx.COLOR_BLACK" justification="Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER" font="Graphics.FONT_TINY" />
+        <drawable id="Graph"/>
+    </layout>
+
+
+    <drawable-list id="ChartBackground" width="200" height="50" x="80" y="190" background="Gfx.COLOR_BLACK">
+        <shape type="rectangle" x="0" y="0" width="200" height="1"  color="Gfx.COLOR_WHITE" />
+        <shape type="rectangle" x="0" y="50" width="200" height="1"  color="Gfx.COLOR_WHITE" />
+        <shape type="rectangle" x="0" y="100" width="200" height="1"  color="Gfx.COLOR_WHITE" />
+    </drawable-list>
+    <drawable-list id="Graph" width="60" height="60" x="75%" y="80" background="Gfx.COLOR_TRANSPARENT">
+        <shape type="circle" x="31" y="31" radius="31" border_width="0" color="Gfx.COLOR_WHITE" />
+        <bitmap id="graph" x="0" y="0" filename="./images/graph.png" />
+    </drawable-list>
+</resources>
