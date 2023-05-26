@@ -10,7 +10,6 @@ const GRAPH_WIDTH = 96; // maximum amount of data points we can show in the grap
 const DATA_POS_START = GRAPH_WIDTH-1;
 class BatteryGuesstimateView extends WatchUi.View {
     var _stepsToShowInGraph as Integer = GRAPH_WIDTH;
-    private var _drawingDone as Boolean = false;
     private var _graphData as Array = new [GRAPH_WIDTH];
     private var _dataPos as Integer = DATA_POS_START;
     private var _circularBufferPosition as Integer = 0;
@@ -24,7 +23,6 @@ class BatteryGuesstimateView extends WatchUi.View {
 
     private function resetValues() as Void {
         _circularBufferPosition = Storage.getValue($.CIRCULAR_BUFFER_LAST_POSITION_STORAGE_NAME_V2) as Integer;
-        _drawingDone = false;
         _dataPos = DATA_POS_START;
         _minBattValue = 100.0;
         _maxBattValue = 0.0;
@@ -153,137 +151,136 @@ class BatteryGuesstimateView extends WatchUi.View {
             WatchUi.requestUpdate();
 
             return;
-        } else if (_drawingDone == false ) {
-            dc.setPenWidth(1);
-            var timeText = "24h";
-            View.onUpdate(dc);
+        }
+        
+        dc.setPenWidth(1);
+        var timeText = "24h";
+        View.onUpdate(dc);
 
-            _deviceSpecificView.drawButtonHint(dc);
-            try {
-                if (!(Properties.getValue("export-url") as String).equals("")) {
-                    _deviceSpecificView.drawExportButtonHint(dc);
-                }
-            } catch (e){
-                // key does not exist, so nothing to do
+        _deviceSpecificView.drawButtonHint(dc);
+        try {
+            if (!(Properties.getValue("export-url") as String).equals("")) {
+                _deviceSpecificView.drawExportButtonHint(dc);
             }
+        } catch (e){
+            // key does not exist, so nothing to do
+        }
 
-            var x;
+        var x;
 
-            for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
-                x = i * _deviceSpecificView.GRAPH_WIDTH_MULTIPLIER + _deviceSpecificView.X_MARGIN_LEFT;
-                var graphData = Math.round(_graphData[i] as Float / 2);
-                dc.drawLine(
-                    x,
-                    _deviceSpecificView.Y_ZERO_LINE,
-                    x,
-                    _deviceSpecificView.Y_ZERO_LINE-graphData  as Float * _deviceSpecificView.GRAPH_WIDTH_MULTIPLIER
-                );
-            }
-            _drawingDone = true;
-
-            if (_stepsToShowInGraph > 96) {
-                timeText = (_stepsToShowInGraph / 96) + "days";
-            }
-
-            _deviceSpecificView.drawTimeText(dc, timeText);
-            var guesstimate = $.guesstimate(_cumulatedDischarge*-1, _stepsToShowInGraph * 15);
-            var y = _deviceSpecificView.STATS_Y_START;
-
-            dc.drawText(
-                _deviceSpecificView.STATS_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                _maxBattValue.format("%0.2f") + "%",
-                Graphics.TEXT_JUSTIFY_RIGHT
-            );
-            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
-            dc.drawText(
-                _deviceSpecificView.STATS_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                _minBattValue.format("%0.2f") + "%",
-                Graphics.TEXT_JUSTIFY_RIGHT
-            );
-
-            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
-            dc.drawText(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                 "+",
-                 Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(
-                _deviceSpecificView.STATS_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                _cumulatedCharge.format("%0.2f") + "%",
-                Graphics.TEXT_JUSTIFY_RIGHT
-            );
-
-            y = y + _deviceSpecificView.STATS_LINE_HIGHT;
-            dc.drawText(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                "-",
-                Graphics.TEXT_JUSTIFY_LEFT
-            );
-            dc.drawText(
-                _deviceSpecificView.STATS_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                _cumulatedDischarge.format("%0.2f") + "%",
-                Graphics.TEXT_JUSTIFY_RIGHT
-            );
-
-            y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
-            dc.drawText(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                "->",
-                Graphics.TEXT_JUSTIFY_LEFT
-            );
-            dc.drawText(
-                _deviceSpecificView.STATS_X_ALLINGMENT,
-                y,
-                _deviceSpecificView.STATS_FONT,
-                $.guesstimateFormat(guesstimate),
-                Graphics.TEXT_JUSTIFY_RIGHT
-            );
-
-            // draw min/max symbol
+        for (var i = GRAPH_WIDTH-1; i >= 0; i -= 1) {
+            x = i * _deviceSpecificView.GRAPH_WIDTH_MULTIPLIER + _deviceSpecificView.X_MARGIN_LEFT;
+            var graphData = Math.round(_graphData[i] as Float / 2);
             dc.drawLine(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+3,
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+3
-            );
-            dc.drawLine(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
-            );
-            dc.drawLine(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
-            );
-            dc.drawLine(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
-            );
-            dc.drawLine(
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
-                _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
-                _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+                x,
+                _deviceSpecificView.Y_ZERO_LINE,
+                x,
+                _deviceSpecificView.Y_ZERO_LINE-graphData  as Float * _deviceSpecificView.GRAPH_WIDTH_MULTIPLIER
             );
         }
+
+        if (_stepsToShowInGraph > 96) {
+            timeText = (_stepsToShowInGraph / 96) + "days";
+        }
+
+        _deviceSpecificView.drawTimeText(dc, timeText);
+        var guesstimate = $.guesstimate(_cumulatedDischarge*-1, _stepsToShowInGraph * 15);
+        var y = _deviceSpecificView.STATS_Y_START;
+
+        dc.drawText(
+            _deviceSpecificView.STATS_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            _maxBattValue.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+        dc.drawText(
+            _deviceSpecificView.STATS_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            _minBattValue.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+        y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+        dc.drawText(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+                "+",
+                Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(
+            _deviceSpecificView.STATS_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            _cumulatedCharge.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+        y = y + _deviceSpecificView.STATS_LINE_HIGHT;
+        dc.drawText(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            "-",
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+        dc.drawText(
+            _deviceSpecificView.STATS_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            _cumulatedDischarge.format("%0.2f") + "%",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+        y = y + _deviceSpecificView.STATS_LINE_HIGHT + _deviceSpecificView.STATS_GROUP_PADDING;
+        dc.drawText(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            "->",
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+        dc.drawText(
+            _deviceSpecificView.STATS_X_ALLINGMENT,
+            y,
+            _deviceSpecificView.STATS_FONT,
+            $.guesstimateFormat(guesstimate),
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+        // draw min/max symbol
+        dc.drawLine(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+3,
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+3
+        );
+        dc.drawLine(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+        );
+        dc.drawLine(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+6,
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP
+        );
+        dc.drawLine(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+        );
+        dc.drawLine(
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+6,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT,
+            _deviceSpecificView.STATS_ICON_X_ALLINGMENT+3,
+            _deviceSpecificView.STATS_MIN_MAX_ARROW_TOP+_deviceSpecificView.STATS_LINE_HIGHT+6
+        );
     }
 
     public function getPartOfStorageBuffer(steps as Integer) as Array<Float> {
