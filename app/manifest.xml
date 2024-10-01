@@ -5,6 +5,7 @@
         <iq:products>
             <iq:product id="descentg1"/>
             <iq:product id="enduro"/>
+            <iq:product id="enduro3"/>
             <iq:product id="fenix6"/>
             <iq:product id="fenix6pro"/>
             <iq:product id="fenix6s"/>
@@ -18,6 +19,12 @@
             <iq:product id="fenix7x"/>
             <iq:product id="fenix7xpro"/>
             <iq:product id="fenix7xpronowifi"/>
+            <iq:product id="fenix843mm"/>
+            <iq:product id="fenix847mm"/>
+            <iq:product id="fenix8solar47mm"/>
+            <iq:product id="fenix8solar51mm"/>
+            <iq:product id="fr165"/>
+            <iq:product id="fr165m"/>
             <iq:product id="fr955"/>
             <iq:product id="instinct2"/>
             <iq:product id="instinct2s"/>
