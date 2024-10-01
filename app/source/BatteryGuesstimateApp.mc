@@ -45,12 +45,12 @@ class BatteryGuesstimateApp extends Application.AppBase {
 
 
    function getGlanceView(){
-     return [ new $.BatteryGuesstimateGlanceView() ] as Array<GlanceView>;
+     return [ new $.BatteryGuesstimateGlanceView() ];
    }
 
     //! Return the initial view for the app
     //! @return Array Pair [View, Delegate]
-    public function getInitialView() as Array<Views or InputDelegates>? {
+    public function getInitialView() {
         var view;
         var delegate;
         if (System.getDeviceSettings().isGlanceModeEnabled == true) {
@@ -60,11 +60,11 @@ class BatteryGuesstimateApp extends Application.AppBase {
             view = new $.BatteryGuesstimateCarusellView();
             delegate =  new $.BatteryGuesstimateCarusellDelegate();
         }
-        return [view, delegate] as Array<Views or InputDelegates>;
+        return [view, delegate];
     }
 
-    public function getServiceDelegate() as Array<ServiceDelegate>{
-        return [new $.MyServiceDelegate()] as Array<ServiceDelegate>;
+    public function getServiceDelegate() {
+        return [new $.MyServiceDelegate()];
     }
 }
 
