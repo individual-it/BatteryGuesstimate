@@ -94,7 +94,7 @@ class BatteryGuesstimateDelegate extends WatchUi.BehaviorDelegate {
             var headers = {"Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON};
 
             if (username != "" || password != "") {
-                headers.put("Authorization:", "Basic " + Toybox.StringUtil.encodeBase64(username + ":" + password));
+                headers.put("Authorization", "Basic " + Toybox.StringUtil.encodeBase64(username + ":" + password));
             }
             var params = {"battery-history" => _view.getPartOfStorageBuffer(_view.getStepsToShowInGraph())};
             var options = {
