@@ -110,6 +110,7 @@ for OwnCloud.
 
 ## supported devices
 - Garmin Instinct 2 Series
+- Garmin Instinct 3 Solar (45/50mm)
 - Garmin Fenix 6 Series
 - Garmin Fenix 7 Series
 - Garmin Forerunner 955 Series
