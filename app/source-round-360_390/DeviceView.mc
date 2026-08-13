@@ -4,12 +4,12 @@ import Toybox.WatchUi;
 
 class DeviceView {
     var Y_ZERO_LINE as Integer = 290;
-    var X_MARGIN_LEFT as Integer = 80;
+    var X_MARGIN_LEFT as Integer = 70;
     var GRAPH_WIDTH_MULTIPLIER as Integer = 2;
 
     var STATS_FONT as Graphics.FontDefinition = Graphics.FONT_TINY;
     var STATS_X_ALLINGMENT as Integer  = 250;
-    var STATS_ICON_X_ALLINGMENT as Integer  = 120;
+    var STATS_ICON_X_ALLINGMENT as Integer  = 105;
     var STATS_Y_START as Integer  = 15;
     var STATS_LINE_HIGHT as Integer  = 30;
     var STATS_GROUP_PADDING as Integer  = 5;
