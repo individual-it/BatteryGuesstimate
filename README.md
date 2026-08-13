@@ -109,7 +109,7 @@ for OwnCloud.
 - **Send/receive** information to/from the Internet: needed to send the notification to the phone and for the export function.
 
 ## supported devices
-- Garmin Instinct 2 Series
+- Garmin Instinct 2/3 Series
 - Garmin Fenix 6 Series
 - Garmin Fenix 7 Series
 - Garmin Forerunner 955 Series
