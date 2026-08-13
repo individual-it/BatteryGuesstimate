@@ -109,11 +109,7 @@ for OwnCloud.
 - **Send/receive** information to/from the Internet: needed to send the notification to the phone and for the export function.
 
 ## supported devices
-- Garmin Instinct 2/3 Series
-- Garmin Fenix 6 Series
-- Garmin Fenix 7 Series
-- Garmin Forerunner 955 Series
-- Garmin Descent G1 Series
+[check app page](https://apps.garmin.com/apps/572b8232-7fb6-4e4f-a938-2395d0df3c7c?tid=1)
 
 If you think that tool would be also useful on your device please open an issue or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
 
