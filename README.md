@@ -111,7 +111,7 @@ for OwnCloud.
 ## supported devices
 [check app page](https://apps.garmin.com/apps/572b8232-7fb6-4e4f-a938-2395d0df3c7c?tid=1)
 
-If you think that tool would be also useful on your device please open an issue or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
+If you think that tool would be also useful on your device please open an issue or contact me on [mastodon](https://mastodon.world/@arturN)
 
 ## limitations / issues
 - only calculates battery change till the last recorded data point not till now (this data can be already nearly 15min old)
@@ -119,4 +119,4 @@ If you think that tool would be also useful on your device please open an issue 
 ## future ideas
 see: https://github.com/individual-it/BatteryGuesstimate/issues
 
-feel free to open issue if you have more ideas or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
+feel free to open issue if you have more ideas or contact me on [mastodon](https://mastodon.world/@arturN) 
