@@ -6,7 +6,7 @@
 
 Connect IQ store link: https://apps.garmin.com/en-US/apps/572b8232-7fb6-4e4f-a938-2395d0df3c7c
 
-For questions, please open an issue or contact me on [twitter](https://twitter.com/INDIVIDUALIT)
+For questions, please open an issue or contact me on [mastodon](https://mastodon.world/@arturN)
 
 ## Why do you need it?
 
